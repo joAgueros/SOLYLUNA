@@ -1,0 +1,56 @@
+﻿
+select {
+
+}
+
+#origen {
+    width: 180px;
+    margin: 0 0 50px 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+#destino {
+    width: 180px;
+    margin: 0 0 50px 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+.clear {
+    clear: both;
+    text-align: center
+}
+
+.estiloDiv {
+    float: left;
+    width: 200px;
+    text-align: center
+}
+
+#pasar_izq {
+    margin: 25px 1px 0 1px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+#pasar_der {
+    margin: 25px 1px 0 1px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.izq {
+    border-radius: 10px 0 0 10px;
+}
+
+.der {
+    border-radius: 0 10px 10px 0;
+}
+
+select:disabled {
+    background: #DD2D30;
+    border: 1px solid red;
+}

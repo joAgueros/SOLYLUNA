@@ -1,0 +1,257 @@
+﻿@model Modelos.ViewModels.Clientes.RegistrarVendedorViewModel
+@{
+    ViewData["Title"] = "Vender";
+}
+
+<div class="page-wrapper">
+
+    <section class="page-header" style="background-image: url(/ContentCliente/assets/images/main-slider/banner-slider-7.jpg);padding: 60px 0px 50px">
+        <div class="container">
+            <div class="page-header-inner">
+                <h2>VENDE CON NOSOTROS</h2>
+                
+            </div>
+        </div>
+    </section>
+    <!--Page Header End-->
+    <!--Locations Start-->
+    <!--Contact Start-->
+    <section class="locations" style="padding: 50px 0px 20px">
+
+        <div class="container">
+            <style type="text/css">
+                #juridicoDiv {
+                    display: none;
+                }
+
+                #alertaTipo {
+                    display: none;
+                }
+            </style>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4">
+                    <div class="block-title text-left">
+
+                        <h4>SOL Y LUNA REAL ESTATE </h4>
+                        <h2>Llena este formulario para ayudarte a vender.</h2>
+                    </div>
+                    <div class="contact_text">
+                        <p>
+                            Estamos 100% disponibles para atenderle, no dude en contactarnos!
+                        </p>
+
+                    </div>
+
+                    <div class="contact__social">
+                        @*<a href="#"><i class="fab fa-twitter"></i></a>*@
+                        <a href="https://www.facebook.com/Sol-y-Luna-Real-Estate-CR-1820981024597878"><i class="fab fa-facebook-square"></i></a>
+                        <a href="https://www.linkedin.com/company/real-estate-sol-y-luna/"><i class="fab fa-linkedin-in"></i></a>
+                        @*<a href="#"><i class="fab fa-instagram"></i></a>*@
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8">
+                    <form id="RegistrarVendedorForm">
+
+                        <div class="row">
+                            <div class=" col-sm-6">
+                                @*<div class="comment_input_box form-group" data-select2-id="119">
+                                        <label>Tipo de Persona</label>
+                                        <select asp-for="TipoPersonaId" id="tipoPersona" asp-items="Model.TipoPersonas" class="form-control"></select>
+                                        <span asp-validation-for="TipoPersonaId" class="text-danger"></span>
+                                    </div>*@
+                                <div class="form-group" data-select2-id="119">
+                                    <label>Tipo de Identificación</label>
+                                    <select id="tipoPersona" name="tipoPersona" class="form-control">
+
+                                        <option value="1">IDENTIFICACION FISICA</option>
+                                        <option value="2">IDENTIFICACION JURIDICA</option>
+                                    </select>
+                                    <span id="alertaTipo" class="text-danger">Seleccione un tipo de cédula</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="juridicoDiv">
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Nombre Juridico</label>
+                                        <input asp-for="NombreEntidad" id="nombreEntidad" class="form-control input-sm" />
+                                        <span asp-validation-for="NombreEntidad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Cédula Jurídica</label>
+                                        <input asp-for="CedulaJu" id="cedulaJu" class="validaCed form-control input-sm" />
+                                        <span asp-validation-for="CedulaJu" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Razón Social</label>
+                                        <input asp-for="RazonSocial" id="razonSocial" class="form-control input-sm" />
+                                        <span asp-validation-for="RazonSocial" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Correo Electrónico</label>
+                                        <input asp-for="CorreoJu" id="correoJu" class="form-control input-sm" />
+                                        <span asp-validation-for="CorreoJu" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="tituloRep" style="display:none;"><h3 class="col-sm-12">Datos del representante legal</h3></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="comment_input_box form-group">
+                                    <label>Nombre</label>
+                                    <input asp-for="Nombre" id="nombre" class="form-control input-sm" />
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="comment_input_box form-group">
+                                    <label>Identificación</label>
+                                    <input asp-for="Identificacion" id="identificacion" class="validaCed form-control input-sm" />
+                                    <span asp-validation-for="Identificacion" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="comment_input_box form-group">
+                                    <label>Primer Apellido </label>
+                                    <input asp-for="Apellido1" id="apellido1" class="form-control input-sm" />
+                                    <span asp-validation-for="Apellido1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="comment_input_box form-group">
+                                    <label>Segundo Apellido</label>
+                                    <input asp-for="Apellido2" id="apellido2" class="form-control input-sm" />
+                                    <span asp-validation-for="Apellido2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="comment_input_box form-group">
+                                    <label>Tel. Móvil</label>
+                                    <input asp-for="TelefonoMovil" id="telMovil" class="validanumericos form-control input-sm" />
+                                    <span asp-validation-for="TelefonoMovil" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="comment_input_box form-group">
+                                    <label>Tel. Oficina</label>
+                                    <input asp-for="TelefonoOficina" id="telOficina" class="validanumericos form-control input-sm" />
+                                    <span asp-validation-for="TelefonoOficina" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="comment_input_box col-sm-4">
+                                <div class="form-group">
+                                    <label>Tel. Casa</label>
+                                    <input asp-for="TelefonoCasa" id="telCasa" class="validanumericos form-control input-sm" />
+                                    <span asp-validation-for="TelefonoCasa" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="comment_input_box form-group">
+                                    <label>Correo electrónico</label>
+                                    <input asp-for="CorreoElectronico" id="correo" class="form-control input-sm" />
+                                    <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="comment_input_box form-group">
+                                    <label> Provincias </label>
+                                    <select asp-for="ProvinciaId" asp-items="Model.Provincias" id="idProvincia" name="provincias" class="form-control"></select>
+                                    <span asp-validation-for="ProvinciaId" id="ErrorProvincias" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="comment_input_box form-group">
+                                    <label> Cantones </label>
+                                    <select asp-for="CantonId" asp-items="Model.Cantones" id="idCanton" name="cantones" class="form-control"></select>
+                                    <span asp-validation-for="CantonId" id="ErrorCantones" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="comment_input_box form-group">
+                                    <label>Distritos </label>
+                                    <select asp-for="DistritoId" asp-items="Model.Distritos" id="idDistrito" name="distritos" class="form-control"></select>
+                                    <span asp-validation-for="DistritoId" id="ErrorDistritos" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="comment_input_box form-group">
+                                    <label> Dirección exacta </label>
+                                    <textarea asp-for="DireccionExacta" id="direccion" class="form-control"></textarea>
+                                    <span asp-validation-for="DireccionExacta" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="card">
+                                    <div class="align-items-center m-2">
+                                        @*<button type="button" class="btn btn-secondary" id="btnCancelarRegistroVendedor" data-dismiss="modal">Cancelar</button>*@
+                                        <button type="submit" id="submit" class="btn btn-primary">Enviar Informacion</button>
+                                        <div class="alert alert-danger alert-dismissible mt-2" id="muestraError">
+
+                                            <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error </h5>
+                                            <p id="mensajeError"> </p>
+                                        </div>
+                                        <div class="alert alert-warning alert-dismissible mt-2" id="muestraAdvertencia">
+
+                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Gracias!</h5>
+                                            <p id="mensajeAdvertencia"> </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--Contact End-->
+@section scripts {
+    <environment include="Development">
+        <script src="~/js/logicaSitio/Clientes/Validaciones.js"></script>
+        <script src="~/js/logicaSitio/Clientes/VendedorWebCl.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/logicaSitio/Clientes/Validaciones.js"></script>
+        <script src="~/js/logicaSitio/Clientes/VendedorWebCl.js"></script>
+    </environment>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

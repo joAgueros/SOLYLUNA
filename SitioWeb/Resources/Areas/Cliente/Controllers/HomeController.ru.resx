@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Texto1" xml:space="preserve">
+    <value>Найдите свою недвижимость в Коста-Рике</value>
+  </data>
+  <data name="Texto2" xml:space="preserve">
+    <value>АРЕНДА</value>
+  </data>
+  <data name="Texto3" xml:space="preserve">
+    <value>ПОКУПКА</value>
+  </data>
+  <data name="Texto6" xml:space="preserve">
+    <value>Доверие и безопасность Услуги в сфере недвижимости</value>
+  </data>
+  <data name="Texto7" xml:space="preserve">
+    <value>Ознакомьтесь с последними предложениями</value>
+  </data>
+  <data name="Texto5" xml:space="preserve">
+    <value>Искать недвижимость</value>
+  </data>
+  <data name="Texto4" xml:space="preserve">
+    <value>Поиск по провинции, кантону или округу</value>
+  </data>
+  <data name="En venta" xml:space="preserve">
+    <value>Продается</value>
+  </data>
+  <data name="Comprar" xml:space="preserve">
+    <value>покупка</value>
+  </data>
+  <data name="Vender" xml:space="preserve">
+    <value>Продавать</value>
+  </data>
+  <data name="En alquiler" xml:space="preserve">
+    <value>В аренду</value>
+  </data>
+  <data name="Apartamento de lujo" xml:space="preserve">
+    <value>Роскошная квартира</value>
+  </data>
+  <data name="Cliente" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="Como puedes vender o alquilar tu propiedad con nosotros" xml:space="preserve">
+    <value>#TODO#_Как вы можете продать или арендовать свою недвижимость у нас</value>
+  </data>
+  <data name="Paso" xml:space="preserve">
+    <value>Он прошел</value>
+  </data>
+  <data name="Sigue estos &lt;br /&gt; sencillos pasos" xml:space="preserve">
+    <value>#TODO#_Следуйте этим простым шагам</value>
+  </data>
+  <data name="HelloWorld" xml:space="preserve">
+    <value>Привет, мир</value>
+  </data>
+  <data name="Texto9" xml:space="preserve">
+    <value>Найдите свою недвижимость</value>
+  </data>
+  <data name="Texto10" xml:space="preserve">
+    <value>Изучите наши провинции</value>
+  </data>
+  <data name="Texto13" xml:space="preserve">
+    <value>У нас есть широкий выбор недвижимости на ваш вкус</value>
+  </data>
+  <data name="Texto14" xml:space="preserve">
+    <value>Опытный агент</value>
+  </data>
+  <data name="Texto12" xml:space="preserve">
+    <value>Найдите дом своей мечты</value>
+  </data>
+  <data name="Texto15" xml:space="preserve">
+    <value>Мы подтверждаем нашу приверженность нашим клиентам самым квалифицированным персоналом</value>
+  </data>
+  <data name="Texto8" xml:space="preserve">
+    <value>НОВЫЕ СВОЙСТВА</value>
+  </data>
+  <data name="Texto11" xml:space="preserve">
+    <value>Почему выбрали нас?</value>
+  </data>
+  <data name="ESCRIBENOS" xml:space="preserve">
+    <value>НАПИШИТЕ НАМ</value>
+  </data>
+  <data name="Texto16" xml:space="preserve">
+    <value>Аренда, покупка и продажа</value>
+  </data>
+  <data name="Saludo" xml:space="preserve">
+    <value>Добро пожаловать в Sol y Luna Real Estate</value>
+  </data>
+  <data name="Texto25" xml:space="preserve">
+    <value>Коммерческие помещения</value>
+  </data>
+  <data name="Nosotros" xml:space="preserve">
+    <value>Мы</value>
+  </data>
+  <data name="Texto24" xml:space="preserve">
+    <value>Недвижимость на пляже</value>
+  </data>
+  <data name="Texto23" xml:space="preserve">
+    <value>Сельская недвижимость</value>
+  </data>
+  <data name="Propiedades" xml:space="preserve">
+    <value>характеристики</value>
+  </data>
+  <data name="Texto22" xml:space="preserve">
+    <value>Меблированные дома</value>
+  </data>
+  <data name="CONTACTANOS" xml:space="preserve">
+    <value>Связаться с нами</value>
+  </data>
+  <data name="Texto21" xml:space="preserve">
+    <value>Мы предоставляем лучшие услуги в сфере недвижимости</value>
+  </data>
+  <data name="Texto20" xml:space="preserve">
+    <value>Что вы ищете?</value>
+  </data>
+  <data name="Texto19" xml:space="preserve">
+    <value>Не беспокойтесь о процессе, мы поможем вам продать, купить или арендовать через нас</value>
+  </data>
+  <data name="Contacto" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="Texto18" xml:space="preserve">
+    <value>Мы публикуем вашу недвижимость</value>
+  </data>
+  <data name="Apartamento interior" xml:space="preserve">
+    <value>ИнтерьерНая примыкония</value>
+  </data>
+  <data name="Texto17" xml:space="preserve">
+    <value>Вы просите, мы это делаем. У нас широкий список клиентов, как покупателей, так и собственников</value>
+  </data>
+  <data name="Nombre" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="El campo {0} es obligatorio" xml:space="preserve">
+    <value>Это пространство является обязательным</value>
+  </data>
+  <data name="Iniciar Sesión" xml:space="preserve">
+    <value>Авторизоваться</value>
+  </data>
+  <data name="Servicios" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="Inicio" xml:space="preserve">
+    <value>начало</value>
+  </data>
+</root>

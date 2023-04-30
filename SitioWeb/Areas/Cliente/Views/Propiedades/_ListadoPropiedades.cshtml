@@ -1,0 +1,95 @@
+﻿@model List<Modelos.ViewModels.Propiedades.VerPropiedadViewModel>
+
+<style>
+    .fit-image {
+        width: 100%;
+        object-fit: cover;
+        height: 200px; /* only if you want fixed height */
+    }
+</style>
+
+@if (Model != null)
+{
+    <h4 class="m-5"> Se han encontrando @Model.Count propiedades</h4>
+
+    <div class="listings_page_content m-5">
+        <div class="row">
+
+            @* Recorre cada propiedad *@
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="col-xl-4">
+                    <!--Listings Page Content Single-->
+                    <div class="listings_page_content_single">
+
+                        @{
+                            var random = new Random();
+                            var id = random.Next(0, 10000000);
+                        }
+                        <div id="carouselExampleControls-@id" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators mb-5">
+                                @{ int cont1 = 0; }
+                                @foreach (var item2 in Model[i].ImagenesPropiedad)
+                                {
+                                    var itemDinamico = cont1++ == 0 ? "item active" : "item";
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="@cont1" class="@itemDinamico bg-dark"></li>
+                                }
+                            </ol>
+                            <div class="carousel-inner">
+                                @{ int cont2 = 0;}
+                                @foreach (var item3 in Model[i].ImagenesPropiedad)
+                                {
+                                    var itemDinamico = cont2++ == 0 ? "item active" : "item";
+                                    <div class="carousel-item @itemDinamico">
+                                        <img src="@item3.Ruta" class="d-block w-100 img-responsive fit-image" style="height: 200px; width:250px;" />
+                                    </div>
+                                }
+                            </div>
+
+                            <a class="carousel-control-prev" href="#carouselExampleControls-@id" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls-@id" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="listings_page_bottom_content">
+                        <div class="listings_page_bottom_content_top">
+                            <h4><a href="/Cliente/Home/VerInformacionPropiedad/@Model[i].IdPropiedad">@Model[i].UsoPropiedad</a></h4>
+                            <p>@Model[i].Provincia, @Model[i].Canton, @Model[i].Distrito </p>
+                            @if (Model[i].Moneda != "Colones")
+                            {
+                                <h3><span>PRECIO</span> $ @Model[i].PrecioMaximo </h3>
+                            }
+                            else
+                            {
+                        <h3><span>PRECIO </span>₡ @Model[i].PrecioMaximo </h3>
+                            }
+                        </div>
+                        <div class="latest_properties_bottom_content">
+                            <p>Medida</p>
+                            <ul class="list-unstyled">
+                                <li><span class="icon-square-measument"></span>@Model[i].TotalMedida - @Model[i].DescripcionMedida</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            }
+
+        </div> <!--Fin de fila de propiedades-->
+    </div>
+}
+else
+{
+
+}
+

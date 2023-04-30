@@ -1,0 +1,82 @@
+﻿@model Modelos.ViewModels.Propiedades.GaleriaViewModel
+
+@{
+    ViewData["Title"] = "Construcción";
+}
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/loader.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<style>
+    .fit-image {
+        width: 100%;
+        object-fit: cover;
+        height: 200px; /* only if you want fixed height */
+    }
+</style>
+
+<div class="callout callout-success text-center mt-2">
+    <label class="btn btn-primary" style="cursor:pointer">
+        <i class="fa fa-image"></i> Seleccione una foto <input id="foto" accept=".jpeg,.jpg,.png"
+                                                               type="file" style="display: none;" name="foto" onchange="ValidarTamano(this);" />
+    </label>
+    <p class="font-weight-bold">La foto debe tener una dimensión 370px de ancho y 282px de alto como mínimo</p>
+    <p class="font-weight-bold">Únicamente se admiten los siguiente formatos: (.png | .jpg | .jpeg)</p>
+</div>
+
+<div id="divImagen" class="col-sm-3 text-center" style="margin: auto">
+    <div class="position-relative p-3 bg-gray">
+        <div class="ribbon-wrapper ribbon-lg">
+            <div class="ribbon bg-success text-lg">
+                Elegida
+            </div>
+        </div>
+        <div>
+            <img id="previa" class="img-responsive fit-image" style="height: 200px; width:250px;" alt="Foto" src="">
+        </div>
+    </div>
+</div>
+
+<p id="texto" class="text-center text-danger font-weight-bold">  </p>
+
+<form enctype="multipart/form-data" id="fupForm" class="text-center">
+    <div class="form-group">
+        <input type="hidden" asp-for="IdConstruccion" id="idConstruccion" />
+    </div>
+    <input id="submitBtn" type="submit" name="submit" class="btn btn-danger submitBtn" value="Guardar foto" />
+</form>
+
+
+@*/*Vista parcial para mostrar las imagenes de la construccion*/*@
+<div id="ListadoImagenes">
+    <partial name="~/Areas/Admin/Views/Construccion/_ListadoImagenes.cshtml" model="@Model.Imagenes" />
+</div>
+@section scripts {
+
+    <!-- Ekko Lightbox -->
+    <script src="~/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <!-- Filterizr-->
+    <script src="~/plugins/filterizr/jquery.filterizr.min.js"></script>
+    <script src="~/js/logicaSitio/Construccion/galeria.js"></script>
+
+
+    <script>
+        $(function () {
+
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.filter-container').filterizr({ gutterPixels: 3 });
+            $('.btn[data-filter]').on('click', function () {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

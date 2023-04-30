@@ -1,0 +1,469 @@
+﻿@model Modelos.ViewModels.FrontEnd.Home.InformacionPropiedadViewModel
+
+@{
+    string medidaFormat = Convert.ToString(Model.TotalMedida).Replace(",00", "");
+    var precio = string.Format("{0,12:0,000.00}", Model.PrecioMaximo);
+} 
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/favicons/logoico-02.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<div class="page-wrapper">
+
+    <!-- Listings Details Main Image Box Start-->
+    <section class="listings_details_main_image_box">
+        <div class="container-full-width">
+            <div class="thm__owl-carousel owl-carousel owl-theme" data-options='{"margin":10, "smartSpeed": 700, "dots": false, "items": 3, "responsive": {
+                    "0": {
+                        "items": 1
+                    }, 
+                    "480": {
+                        "items": 2
+                    },
+                    "992": {
+                        "items": 4
+                    }
+                }}'>
+                @* Recorre el listado de imagenes de cada propiedad *@
+                @for (int j = 0; j < Model.ImagenesPropiedad.Count; j++)
+                {
+                    <div class="item">
+                        <!--Listings Details Main Image Box Single-->
+                        <div class="listings_details_main_image_box_single">
+                            <div class="listings_details_main_image_box__img">
+                                <a href="@Model.ImagenesPropiedad[j].Ruta" class="img-popup">
+                                    <img width="427px" height="282" src="@Model.ImagenesPropiedad[j].Ruta" alt="@Model.ImagenesPropiedad[j].Titulo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+    <!-- Listings Details Main Image Box End-->
+    <!--Listing Details Top Start-->
+    <section class="listing_details_top" style="margin: -20px 0 -100px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4">
+                    <div class="listing_details_top_left">
+                        <div class="listing_details_top_title">
+                            <h3>Propiedad</h3>
+                            <p>@Html.DisplayFor(x => x.Provincia), @Html.DisplayFor(x => x.Canton), @Html.DisplayFor(x => x.Distrito)</p>
+                            
+                            @if (!string.IsNullOrEmpty(Model.BarrioPoblado))
+                            {
+                                <p>@Html.DisplayFor(x => x.BarrioPoblado)</p>
+                            }
+                            @if (Model.Moneda != "Colones")
+                            {
+                                <h4><span>PRECIO</span> $ @precio</h4>
+
+                            }
+                            else
+                            {
+                                <h4><span>PRECIO</span> ₡ @precio</h4>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8">
+                    <div class="listing_details_top_right clearfix">
+                        <div class="listing_details_top_product_list_box">
+                            <ul class="listing_details_top_product_list list-unstyled">
+
+                                <li>
+                                    <div class="icon_box">
+                                        <span class="icon-square-measument"></span>
+                                    </div>
+                                    <div class="text_box">
+                                        <h5>@medidaFormat</h5>
+                                        <p>@Model.DescripcionMedida</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="listing_details_top_right_btn_box">
+                            <a href="#" class="sale_btn">@Model.Intencion</a>
+                            <p>Property ID: <span>@Model.IdPropiedad</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Listing Details Top End-->
+
+    <!--Listing Details Start-->
+    <section class="listing_details" style="margin-top:-20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="listing_details_left">
+                        <div class="listing_details_text">
+                            <p>@Model.DescripcionPropiedad</p><br />
+
+                            @if (Model.PropiedadCaracteristicas.Count != 0)
+                            {
+                                <p class="text_1">
+
+                                    Características de la propiedad:
+                                    <ul>
+                                        @for (int c = 0; c < Model.PropiedadCaracteristicas.Count; c++)
+                                        {
+                                            <li>
+                                                @Model.PropiedadCaracteristicas[c].Descripcion
+                                            </li>
+                                        }
+                                    </ul>
+                                    <br />
+
+                                </p>
+
+                            }
+
+                            <p> <strong> Tipo de propiedad:</strong>  @Model.TipoPropiedad </p>
+                            <p><strong> Topografía </strong>  : @Model.TopografiaSeleccionada </p>
+                            <p><strong>Uso suelo: </strong>@Model.UsoSuelo </p>
+
+                            @if (Model.RecorridosAcceso.Count != 0)
+                            {
+                                <p class="text_2">
+                                    <strong>Accecibilidades:</strong>
+                                    <ul>
+                                        @for (int i = 0; i < Model.RecorridosAcceso.Count; i++)
+                                        {
+                                            <li>
+                                                @Model.RecorridosAcceso[i].Recorrido Km del @Model.RecorridosAcceso[i].DescripcionAccesibilidad
+                                            </li>
+                                        }
+                                    </ul>
+                                    <br />
+                                </p>
+                            }
+
+                            @if (@Model.Pozo != "No indicado")
+                            {
+                                <p><strong>Tipo Pozo:</strong> @Model.Pozo </p>
+                                @if (@Model.EstatusPozo == "I")
+                                {
+                                    <p><strong> Estado del Pozo: </strong> Inscrito </p>
+                                }
+                                else if (@Model.EstatusPozo == "E")
+                                {
+                                    <p> <strong> Estado del Pozo: </strong>En proceso de Inscripción </p>
+                                }
+                                else if (@Model.EstatusPozo == "S")
+                                {
+                                    <p><strong> Estado del Pozo: </strong> Sin Inscribir</p>
+                                }
+
+                            }
+                        </div>
+
+                        <div class="row">
+                            @if (Model.Construcciones.Count != 0)
+                            {
+                                <div class="col-xl-12">
+                                    <div class="listing_details_floor_plans">
+                                        <div class="listing_details_floor_plans_title">
+                                            <h3>Construcciones <i class="fa fa-home"></i> </h3>
+                                        </div>
+
+
+                                        <ul id="accordion" class=" listing_details-accordion wow fadeInUp list-unstyled"
+                                            data-wow-duration="1500ms">
+
+
+                                            @for (int i = 0; i < Model.Construcciones.Count; i++)
+                                            {
+
+                                                var contruc = await contenedorTrabajo.HomeCliente.ObtenerInformacionConstruccion(Model.Construcciones[i].IdConstruccion);
+
+                                                string nomCol = "con";
+                                                var collapse = nomCol + Model.Construcciones[i].IdConstruccion;
+                                                <li>
+                                                    <div class="para-title">
+                                                        <div class="collapsed" role="button" data-toggle="collapse"
+                                                             data-target="#@collapse" aria-expanded="false"
+                                                             aria-controls="@collapse">
+                                                            <i class="fa fa-plus"></i>
+                                                            <div class="listing_details_grand_floor bottom">
+                                                                <div class="left">
+                                                                    <h5> @Model.Construcciones[i].Descripcion</h5>
+                                                                </div>
+                                                                <div class="right">
+                                                                    <p>Medida: @Model.Construcciones[i].Medida / @Model.Construcciones[i].TipoMedida :  @Model.Construcciones[i].Vistada</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="@collapse" class="collapse" role="button"
+                                                         aria-labelledby="@collapse" data-parent="#accordion">
+
+                                                        <div class="listing_details_floor_plans_text">
+                                                            @if (@contruc.Divisiones.Count != 0)
+                                                            {
+                                                                <p><strong>DIVICIONES DE LA COSTRUCCIÓN </strong></p>
+                                                                for (int d = 0; d < contruc.Divisiones.Count; d++)
+                                                                {
+                                                                    <ul>
+                                                                        <li>
+                                                                            @contruc.Divisiones[d].Descripcion /  @contruc.Divisiones[d].NombreDescriptivo
+                                                                        </li>
+                                                                    </ul>
+                                                                };
+                                                            }
+                                                            @if (@contruc.Caracteristicas.Count != 0)
+                                                            {
+                                                                <br />
+                                                                <p><strong>CARACTERISTICAS DE LA COSTRUCCIÓN</strong></p>
+                                                                for (int d = 0; d < contruc.Caracteristicas.Count; d++)
+                                                                {
+
+                                                                    <ul>
+                                                                        <li>
+                                                                            @contruc.Caracteristicas[d].Descripcion
+                                                                        </li>
+                                                                    </ul>
+                                                                };
+                                                            }
+                                                            <p>
+
+                                                            </p>
+                                                        </div>
+                                                        <div class="listing_details_floor_plans_img">
+                                                            <!-- Listings Details Main Image Box Start-->
+                                                            <section class="listings_details_main_image_box">
+                                                                <div class="container-full-width">
+                                                                    <div class="thm__owl-carousel owl-carousel owl-theme" data-options='{"margin":10, "smartSpeed": 700, "dots": false, "items": 3, "responsive": {
+                                                                            "0": {
+                                                                                "items": 1
+                                                                            },
+                                                                            "480": {
+                                                                                "items": 2
+                                                                            },
+                                                                            "992": {
+                                                                                "items": 4
+                                                                            }
+                                                                        }}'>
+                                                                        @* Recorre el listado de imagenes de cada propiedad *@
+                                                                        @for (int m = 0; m < contruc.Imagenes.Count; m++)
+                                                                        {
+                                                                            <div class="item">
+                                                                                <!--Listings Details Main Image Box Single-->
+                                                                                <div class="listings_details_main_image_box_single">
+                                                                                    <div class="listings_details_main_image_box__img">
+                                                                                        <a href="@contruc.Imagenes[m].Ruta" class="img-popup">
+                                                                                            <img src="@contruc.Imagenes[m].Ruta" alt="@contruc.Imagenes[m].Titulo">
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+
+
+                            }
+
+                            <style>
+
+                                .video-responsive {
+                                    position: relative;
+                                    padding-bottom: 56.25%; /* 16/9 ratio */
+                                    padding-top: 30px; /* IE6 workaround*/
+                                    height: 0;
+                                    overflow: hidden;
+                                    margin-top: 5%;
+                                }
+
+                                    .video-responsive iframe,
+                                    .video-responsive object,
+                                    .video-responsive embed {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                            </style>
+
+                            @if (Model.LinkVideo != "")
+                            {
+                                string errString = Model.LinkVideo;
+
+                                string correctString = errString.Replace("/watch?v=", "/embed/");
+
+                                <div class="col-xl-12" style="margin-top:5%">
+                                    <div class="listing_details_video">
+                                        <div class="listing_details_video_title">
+                                            <h3>Video de la Propiedad</h3>
+                                        </div>
+                                        <div class="listing_details_video_img">
+
+                                            <div class="video-responsive">
+                                                <iframe src="@correctString" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+
+                        <!--Review Two Box Form-->
+                        <div class="review_two_box_form" style="margin-top:5%">
+                            <h3 class="review_two_box_form__title">Solicitar información de esta propiedad</h3>
+                            <div class="review_two_box_form_rating">
+                            </div>
+                            <form id="solicitudInfoForm" class="review_two__form">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="review_two_input_box">
+                                            <input id="nombre" type="text" placeholder="Nombre" name="nombre" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="review_two_input_box">
+                                            <input id="correo" type="email" placeholder="Correo electrónico" name="correo" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="review_two_input_box">
+                                            <input id="telefono" type="text" placeholder="Teléfono" name="telefono" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <div class="review_two_input_box">
+                                            <h5>Código propiedad</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <div class="review_two_input_box">
+                                            <input id="idProp" type="text" value="@Model.CodigoTipoUsoPropiedad" name="idProp" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xl-12">
+                                        <div class="review_two_input_box">
+                                            <textarea id="comentario" name="comentario" placeholder="Descripción solicitud"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        @* <input type="submit" id="btnSubmit" class="thm-btn comment-form__btn" value="Enviar solicitud">*@
+                                        <button id="btnSubmit" class="thm-btn comment-form__btn">Enviar solicitud</button>
+                                    </div>
+                                    <div class="col-xl-6" id="respuesta" style="display:none">
+                                        <input class="btn btn-info " value="Solicitud enviada">
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="listing_details_sidebar">
+                        <div class="listing_details_sidebar_agent">
+                            <div class="listing_details_sidebar_agent_img">
+                                <img src="~/ContentCliente/assets/images/team/about1.jpg" alt="" width="" height="323px">
+                            </div>
+                            <div class="listing_details_sidebar_agent_content">
+                                <div class="listing_details_sidebar_agent_title">
+                                    <h3>Elda Vasquez Espinoza </h3>
+                                    <p>Property Agent</p>
+                                </div>
+                                <ul class="listing_details_sidebar_agent_contact_info list-unstyled">
+                                    <li>
+                                        <div class="icon">
+                                            <i class="fas fa-phone-square-alt"></i>
+                                        </div>
+                                        <div class="text">
+                                            <a href="tel:(+506)2686-6732">(+506)2686-6732</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <i class="fas fa-print"></i>
+                                        </div>
+                                        <div class="text">
+                                            <a href="tel:+506 8728 9082">(+506) 8728 9082</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="text">
+                                            <a href="mailto:needhelp@company.com">elda@realestatesolyluna.com</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="text">
+                                            <a href="mailto:needhelp@company.com">oficina@realestatesolyluna.com</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="listing_details_sidebar_agent__social">
+                                    <a href="https://www.facebook.com/Sol-y-Luna-Real-Estate-CR-1820981024597878"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="https://www.linkedin.com/company/real-estate-sol-y-luna/"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="listing_details_calculator">
+                                <h3 class="listing_details_calculator_title">Mortgage Calculator</h3>
+                                <div class="listing_details_calculator_input_box">
+                                    <input type="text" placeholder="Sale price">
+                                    <input type="text" placeholder="Interest rate %">
+                                    <input type="text" placeholder="Term">
+                                    <input type="text" placeholder="Down payment">
+                                </div>
+                                <button type="submit" class="thm-btn">Calculate</button>
+                            </div>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @section scripts {
+
+        <environment include="Development">
+            <script src="~/js/logicaSitio/Inicio/Soliform.js"></script>
+        </environment>
+
+        <environment exclude="Development">
+            <script src="~/js/logicaSitio/Inicio/Soliform.js"></script>
+        </environment>
+    }
+</div>

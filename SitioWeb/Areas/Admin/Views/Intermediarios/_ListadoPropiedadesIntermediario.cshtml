@@ -1,0 +1,89 @@
+﻿@model List<Modelos.Entidades.MostrarPropiedadTabla>
+
+<style>
+
+    .boton {
+        width: 60px;
+        height: 60px;
+        background-color: #03800b;
+        margin: 5px;
+        padding: 1px;
+        text-align: center;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        line-height: 55px;
+        float: left;
+    }
+
+        .boton:hover {
+            opacity: 0.50;
+            filter: alpha (opacity=50);
+        }
+
+        .boton a {
+            color: #fff;
+            padding: 1px 1px 1px 0px;
+        }
+</style>
+
+@{
+    if (Model.Count == 0)
+    {
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h4> <i class="fas fa-home"> No hay propiedades registradas </i>  </h4>
+            </div>
+        </div>
+    }
+    else
+    {
+        <section class="content">
+
+            <div class="card card-solid">
+                <div class="card-body pb-0">
+                    <div class="row d-flex align-items-stretch">
+
+                        @foreach (var propiedad in Model)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0">
+
+                                        <div class="text-center">
+                                            <h3 class=font-weight-bold>  Propiedad  </h3>
+                                            <div class="boton"><a href="/Admin/Propiedad/VerInformacionPropiedad/@propiedad.Id">@propiedad.Id</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h2 class="lead"> @propiedad.UsoPropiedad /@propiedad.TipoPropiedad</h2>
+                                                <p class="text-muted text-sm"><b>Localización </b> @propiedad.Ubicacion </p>
+                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <li class="small"><span class="fa-li"><i class="fas fa-dollar-sign"></i></span>@propiedad.PrecioMaximo </li>
+                                                    <li class="small"><span class="fa-li"><i class="fas fa-ruler-combined"></i></span>@propiedad.MedidaPropiedad </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="/Admin/Propiedad/VerInformacionPropiedad/@propiedad.Id" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-home"></i> Ver Propiedad
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    }
+}

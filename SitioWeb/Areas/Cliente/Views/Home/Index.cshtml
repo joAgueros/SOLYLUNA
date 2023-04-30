@@ -1,0 +1,724 @@
+﻿@model Modelos.ViewModels.FrontEnd.Home.HomeViewModel
+
+<link rel="stylesheet" href="~/ContentCliente/assets/css/jquery-ui.css" asp-append-version="true">
+
+<section class="banner-one">
+    <div class="banner-bg-slide"
+         data-options='{"delay": 5000, "slides": [ {"src": "/ContentCliente/assets/images/main-slider/banner-slider-1.jpg"}, {"src":"/ContentCliente/assets/images/main-slider/banner-slider-2.jpg" }, {"src":"/ContentCliente/assets/images/main-slider/banner-slider-3.jpg" }, {"src":"/ContentCliente/assets/images/main-slider/banner-slider-4.jpg" }, {"src":"/ContentCliente/assets/images/main-slider/banner-slider-5.jpg" } ], "transition": "fade", "timer": false, "align": "top", "animation": ["kenburnsUp", "kenburnsDown", "kenburnsLeft", "kenburnsRight" ] }'>
+    </div><!-- /.banner-bg-slide -->
+    <div class="container">
+        <div class="content-box" style="margin-top:-15%">
+            <div class="row">
+                <div class="top-title" style="text-align:center">
+                    <h2>
+                        @localizer["Texto1"]
+                    </h2>
+                </div>
+            </div>
+
+            <div class="product-tab-box tabs-box">
+                <ul class="tab-btns tab-buttons clearfix list-unstyled">
+                    <li data-tab="#desc" class="tab-btn active-btn"><span>@localizer["Texto2"]</span></li>
+                    <li data-tab="#addi__info" class="tab-btn"><span>@localizer["Texto3"]</span></li>
+                    @*<li data-tab="#review" class="tab-btn"><span>Rent</span></li>*@
+                </ul>
+                <div class="tabs-content">
+                    <div class="tab active-tab" id="desc">
+                        @using (Html.BeginForm("BusquedaPropiedades", "Home"))
+                        {
+                            <div class="banner_one_search_form_input_box">
+                                <div class="main-nav__navigation-box">
+
+                                    @{
+                                        //string intencion = "venta";
+                                        var lista = this.contenedorTrabajo.HomeCliente.ObtenerListaUsosPropiedadesAlquiler();
+
+                                        //var lista = this.contenedorTrabajo.HomeCliente.Test(intencion);
+                                        <select class="myButton" id="seleccionado" name="seleccionado">
+                                            <option value="01" selected="selected">TODAS</option>
+                                            @for (int i = 0; i < lista.Count; i++)
+                                            {
+                                                <option value="@lista[i].IdUsoProp">@lista[i].Descripcion </option>
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <input type="text" name="buscar" id="busquedaVenta" placeholder="Busca un lugar o ciudad">
+                                <input type="hidden" name="intencion" value="Venta" id="intencionVenta">
+                                <button type="submit" class="thm-btn banner_one_search_btn">
+                                    @localizer["Texto5"]
+                                </button>
+
+                            </div>
+                        }
+                    </div>
+
+                    <div class="tab" id="addi__info">
+                        @using (Html.BeginForm("BusquedaPropiedades", "Home"))
+                        {
+                            <div class="banner_one_search_form_input_box">
+                                <div class="main-nav__navigation-box">
+
+                                    @{
+                                        //string intencion = "venta";
+                                        var listaVenta = this.contenedorTrabajo.HomeCliente.ObtenerListaUsosPropiedadesVenta();
+
+                                        //var lista = this.contenedorTrabajo.HomeCliente.Test(intencion);
+                                        <select class="myButton" id="seleccionado" name="seleccionado">
+                                            <option value="01" selected="selected">TODAS</option>
+                                            @for (int i = 0; i < listaVenta.Count; i++)
+                                            {
+                                                <option value="@listaVenta[i].IdUsoProp">@listaVenta[i].Descripcion </option>
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <input type="text" name="buscar" id="busquedaRenta" placeholder="Busca un lugar o ciudad">
+                                <input type="hidden" name="intencion" value="Renta" id="intencionRenta">
+                                <button type="submit" class="thm-btn banner_one_search_btn">
+                                    @localizer["Texto5"]
+                                </button>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row banner_one_bottom_icon_text">
+                <div class="banner_one_bottom_icon">
+                    <span class="icon-building"></span>
+                </div>
+                <div class="banner_one_bottom_text">
+                    <p>@localizer["Texto6"]</p>
+                </div>
+            </div>
+            <div class="banner_one_bottom_iconos">
+                <div class="header_top_one_content_box_bottom__social float-right">
+
+                    <a href="https://www.facebook.com/Sol-y-Luna-Real-Estate-CR-1820981024597878" style="background-color:blue;color:white"><i class="fab fa-facebook-square"></i></a>
+
+                    <a href="https://api.whatsapp.com/send?phone=50687289082" style="background-color:green;color:white"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Banner Section One End -->
+<!--Nuevas Propiedades-->
+<!--Nuevas Propiedades-->
+<section class="latest_properties" style="font-size:16px; margin:0px 25px 0px 25px; padding: 30px 0px 0px">
+    <div class="container_box">
+        <div class="block-title text-center">
+            <!--<h4>@localizer["Texto7"]</h4>-->
+            <h2>@localizer["Texto8"]</h2>
+        </div>
+        <div class="row">
+            @* Recorre cada propiedad *@
+            @for (int i = 0; i < Model.DatosPropiedad.Count; i++)
+            {
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="latest_properties_single">
+                        <div class="latest_properties_img_carousel owl-theme owl-carousel">
+
+                            @* Recorre el listado de imágenes de cada propiedad *@
+                            @for (int j = 0; j < Model.DatosPropiedad[i].ImagenesPropiedad.Count; j++)
+                            {
+                                <div>
+                                    <img width="370" height="282" src="@Model.DatosPropiedad[i].ImagenesPropiedad[j].Ruta" alt="@Model.DatosPropiedad[i].ImagenesPropiedad[j].Titulo">
+                                </div>
+                            }
+                        </div>
+                        @* Pinta la parte de abajo de cada propiedad *@
+                        <div class="latest_properties_content">
+                            <div class="newText_Properties">
+                                <h4>
+                                    <a href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad">@Model.DatosPropiedad[i].UsoPropiedad</a>
+
+                                </h4>@*<h5>@Model.DatosPropiedad[i].TipoPropiedad</h5>*@
+                                @*<p>@Model.DatosPropiedad[i].DireccionExacta  </p>*@
+                                <p>@Model.DatosPropiedad[i].Distrito- @Model.DatosPropiedad[i].Provincia</p>
+                                @{var precio = string.Format("{0,12:0,000.00}", Model.DatosPropiedad[i].PrecioMaximo);
+                                }
+                                @if (Model.DatosPropiedad[i].Moneda != "Colones")
+                                {
+                                    <h3>$ @precio</h3>
+                                }
+                                else
+                                {
+                                    <h3>₡ @precio</h3>
+                                }
+                            <h3>@Model.DatosPropiedad[i].Siglas: @Math.Truncate(Model.DatosPropiedad[i].TotalMedida)</h3>
+
+                                <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad"><i class="fas fa-images"></i></a>
+                                <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad">Ver detalles</a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--Explore las provincias -->
+<section class="explore_one" style="margin:0px 25px 0px 25px; padding:30px 0px 0px">
+    <div class="container">
+        <div class="block-title text-left">
+            <h4>@localizer["Texto9"]</h4>
+            <h2>@localizer["Texto10"]</h2>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="explore_one_inner_content">
+                    <div class="thm-swiper__slider swiper-container" data-swiper-options='{"spaceBetween": 100, "slidesPerView": 4, "autoplay": { "delay": 5000 }, "pagination": {
+                    "el": "#testimonials-one-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  },
+                   "navigation": {
+                    "nextEl": ".explore_one_prev",
+                    "prevEl": ".explore_one_next",
+                    "clickable": true
+                },
+                   "breakpoints": {
+                    "0": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 1
+                    },
+                    "425": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 1
+                    },
+                    "575": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 1
+                    },
+                    "767": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 1
+                    },
+                    "991": {
+                        "spaceBetween": 20,
+                        "slidesPerView": 3
+                    },
+                    "1289": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 4
+                    },
+                    "1440": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 5
+                    }
+                }}'>
+                        <div class="swiper-wrapper m-3 mr-4">
+
+                            @if (Model.TotalPorProvincia.TotalAlajuela != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Alajuela.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Alajuela">
+                                                <div class="explore_one_text">
+                                                    <p>Alajuela</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalAlajuela propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalHeredia != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Heredia.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Heredia">
+                                                <div class="explore_one_text">
+                                                    <p>Heredia</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalHeredia propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalGuanacaste != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Guancaste.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Guanacaste">
+                                                <div class="explore_one_text">
+                                                    <p>Guanacaste</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalGuanacaste propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalSanJose != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/sanjose.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="San Jose">
+                                                <div class="explore_one_text">
+                                                    <p>San José</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalSanJose propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalCartago != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Cartago.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Cartago">
+                                                <div class="explore_one_text">
+                                                    <p>Cartago</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalCartago propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalPuntarenas != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Puntarenas.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Puntarenas">
+                                                <div class="explore_one_text">
+                                                    <p>Puntarenas</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalPuntarenas propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            @if (Model.TotalPorProvincia.TotalLimon != 0)
+                            {
+                                <div class="swiper-slide">
+                                    @using (Html.BeginForm("BusquedaPropiedadesPorProvincia", "Home"))
+                                    {
+                                        <div class="explore_one_single">
+                                            <div class="explore_one_img">
+                                                <img src="/ContentCliente/assets/images/resources/Limon.jpg" alt="">
+                                                <input type="hidden" name="provincia" value="Limon">
+                                                <div class="explore_one_text">
+                                                    <p>Limón</p>
+                                                </div>
+                                                <div class="explore_one_btn">
+                                                    <button type="submit" class="thm-btn banner_one_search_btn">
+                                                        @Model.TotalPorProvincia.TotalLimon propiedades
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="explore_one_nav">
+                        <div class="explore_one_next"><span class="icon-right-arrow"></span></div>
+                        <div class="explore_one_prev"><span class="icon-right-arrow"></span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Explore las provincias-->
+<!--Porque confiar en nosotros-->
+<section class="why_choose_one jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
+         style="        background-image: url(/ContentCliente/assets/images/backgrounds/why_02.jpg);
+        padding: 120px 0 20px;
+">
+    <div class="container">
+        <div class="why_choose_one_title">
+            <h2>@localizer["Texto11"]</h2>
+        </div>
+        <div class="why_choose_one_shape_one"
+             style="background-image: url(/ContentCliente/assets/images/shapes/why_choose_one_shape_1.png)"></div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Why Choose One Single-->
+                <div class="why_choose_one_single wow fadeInUp">
+                    <div class="why_choose_one_icon">
+                        <span class="icon-town"></span>
+                    </div>
+                    <h3>@localizer["Texto12"]</h3>
+                    <p>@localizer["Texto13"]</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Why Choose One Single-->
+                <div class="why_choose_one_single wow fadeInUp" data-wow-delay="100ms">
+                    <div class="why_choose_one_icon">
+                        <span class="icon-agent"></span>
+                    </div>
+                    <h3>@localizer["Texto14"]</h3>@*Agente Experimentado*@
+                    <p>@localizer["Texto15"] </p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Why Choose One Single-->
+                <div class="why_choose_one_single wow fadeInUp" data-wow-delay="200ms">
+                    <div class="why_choose_one_icon">
+                        <span class="icon-assets"></span>
+                    </div>
+                    <h3>@localizer["Texto16"]</h3>@*Alquiler, Compra y Venta*@
+                    <p>@localizer["Texto17"]</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Why Choose One Single-->
+                <div class="why_choose_one_single wow fadeInUp" data-wow-delay="300ms">
+                    <div class="why_choose_one_icon">
+                        <span class="icon-rent"></span>
+                    </div>
+                    <h3>@localizer["Texto18"]</h3>@*Publicamos tu Propiedad*@
+                    <p>@localizer["Texto19"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Porque confiar en nosotros End-->
+<!--Providing One Start-->
+<section class="providing_one jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
+         style="        background-image: url(/ContentCliente/assets/images/backgrounds/providing-01.jpg);
+         padding: 45px 0px 20px">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5">
+                <div class="providing_one_left">
+                    <div class="block-title text-left">
+                        <h4>@localizer["Texto20"]</h4>
+                        <h2>@localizer["Texto21"]</h2>
+                    </div>
+                    @*<div class="providing_one_btn">
+
+                            <a class="thm-btn" asp-area="Cliente" asp-controller="Propiedades" asp-action="Propiedades">@localizer["Texto5"]</a>
+                        </div>*@
+                    @*<div class="providing_one_shaape_one">
+                            <img src="/ContentCliente/assets/images/shapes/providing_one_shape_1.png" alt="">
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7">
+                <div class="providing_one_four_boxes clearfix">
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="providing_one_four_boxes_iocn">
+                                <span class="icon-home"></span>
+                            </div>
+                            <div class="providing_one_four_boxes_text">
+                                <p>@localizer["Texto22"]</p>@*Casas Amuebladas*@
+                            </div>
+                        </li>
+                        <li>
+                            <div class="providing_one_four_boxes_iocn">
+                                <span class="icon-house"></span>
+                            </div>
+                            <div class="providing_one_four_boxes_text">
+                                <p>@localizer["Texto23"]</p>@*Propiedades Rurales*@
+                            </div>
+                        </li>
+                        <li>
+                            <div class="providing_one_four_boxes_iocn">
+                                <span class="icon-condominium"></span>
+                            </div>
+                            <div class="providing_one_four_boxes_text">
+                                <p>@localizer["Texto24"]</p>@*Propiedades de Playa*@
+                            </div>
+                        </li>
+                        <!--<li>
+                            <div class="providing_one_four_boxes_iocn">
+                                <span class="icon-buildings"></span>
+                            </div>
+                            <div class="providing_one_four_boxes_text">
+                                <p>@localizer["Texto25"]</p>-->
+                        @*Locales Comerciales*@
+                        <!--</div>
+                        </li>-->
+                        @*<li>
+                                <div class="providing_one_four_boxes_iocn">
+                                    <span class="icon-cityscape"></span>
+                                </div>
+                                <div class="providing_one_four_boxes_text">
+                                    <p>Negocios </p>
+                                </div>
+                            </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section scripts {
+
+    <script src="~/ContentCliente/assets/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/ContentCliente/assets/js/jquery-ui.js" asp-append-version="true"></script>
+    <script src="~/js/logicaSitio/Inicio/index.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<!--Providing One End-->
+<!--Testimonials One Start-->
+<!--Testimonials One End-->
+<!--<!--Como trabajamos Start-->
+@*Como trabajamos End
+    Blog One Start
+    <section class="blog_one">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4">
+                    <div class="blog_one_left">
+                        <div class="block-title text-left">
+                            <h4>Our Blog Posts</h4>
+                            <h2>Latest News <br>& Articles</h2>
+                        </div>
+                        <div class="blog_one_text">
+                            <p>
+                                Lorem ipsum onts persp unde omnis iste natus errluptatem acc usantium demque
+                                laudantium totam.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8">
+                    <div class="blog_one_right">
+                        <div class="blog_one_carousel owl-theme owl-carousel">
+    Blog One Single
+    <div class="blog_one_single">
+        <div class="blog_one_image_box">
+            <div class="blog_one_img">
+                <img src="/ContentCliente/assets/images/blog/blog_1_img_1.jpg" alt="">
+            </div>
+            <div class="blog_one_date_box">
+                <p>20 Nov, 2020</p>
+            </div>
+        </div>
+        <div class="blog_one_content_box">
+            <h3><a href="news-details.html">Save Thousands Selling Your Property</a></h3>
+            <ul class="list-unstyled blog-one__meta">
+                <li>
+                    <a href="blog-details.html"><i class="far fa-user-circle"></i> Admin</a>
+                </li>
+                <li><span>/</span></li>
+                <li>
+                    <a href="news-details.html">
+                        <i class="far fa-comments"></i> 2
+                        Comments
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    Blog One Single
+    <div class="blog_one_single">
+        <div class="blog_one_image_box">
+            <div class="blog_one_img">
+                <img src="/ContentCliente/assets/images/blog/blog_1_img_2.jpg" alt="">
+            </div>
+            <div class="blog_one_date_box">
+                <p>20 Nov, 2020</p>
+            </div>
+        </div>
+        <div class="blog_one_content_box">
+            <h3>
+                <a href="news-details.html">
+                    Leverage agile frame works to a
+                    robust
+                </a>
+            </h3>
+            <ul class="list-unstyled blog-one__meta">
+                <li>
+                    <a href="news-details.html"><i class="far fa-user-circle"></i> Admin</a>
+                </li>
+                <li><span>/</span></li>
+                <li>
+                    <a href="news-details.html">
+                        <i class="far fa-comments"></i> 2
+                        Comments
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    Blog One Single
+    <div class="blog_one_single">
+                                <div class="blog_one_image_box">
+                                    <div class="blog_one_img">
+                                        <img src="/ContentCliente/assets/images/blog/blog_1_img_3.jpg" alt="">
+                                    </div>
+                                    <div class="blog_one_date_box">
+                                        <p>20 Nov, 2020</p>
+                                    </div>
+                                </div>
+                                <div class="blog_one_content_box">
+                                    <h3>
+                                        <a href="news-details.html">
+                                            Iterative approaches to corporate
+                                            foster
+                                        </a>
+                                    </h3>
+                                    <ul class="list-unstyled blog-one__meta">
+                                        <li>
+                                            <a href="news-details.html"><i class="far fa-user-circle"></i> Admin</a>
+                                        </li>
+                                        <li><span>/</span></li>
+                                        <li>
+                                            <a href="news-details.html">
+                                                <i class="far fa-comments"></i> 2
+                                                Comments
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    Blog One End
+    Brand One Start
+    <div class="brand_one">
+        <div class="container">
+            <div class="thm-swiper__slider swiper-container" data-swiper-options='{"spaceBetween": 100, "slidesPerView": 5, "autoplay": { "delay": 5000 }, "breakpoints": {
+                    "0": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 2
+                    },
+                    "375": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 2
+                    },
+                    "575": {
+                        "spaceBetween": 30,
+                        "slidesPerView": 3
+                    },
+                    "767": {
+                        "spaceBetween": 50,
+                        "slidesPerView": 4
+                    },
+                    "991": {
+                        "spaceBetween": 50,
+                        "slidesPerView": 5
+                    },
+                    "1199": {
+                        "spaceBetween": 100,
+                        "slidesPerView": 5
+                    }
+                }}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="/ContentCliente/assets/images/brand/brand_1_img_1.png" alt="">
+                    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_2.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_3.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_4.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_5.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_1.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_2.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_3.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_4.png" alt="">
+    </div>
+     /.swiper-slide
+    <div class="swiper-slide">
+        <img src="/ContentCliente/assets/images/brand/brand_1_img_5.png" alt="">
+    </div>
+     /.swiper-slide
+    </div>
+            </div>
+        </div>
+    </div>
+    Brand One End*@

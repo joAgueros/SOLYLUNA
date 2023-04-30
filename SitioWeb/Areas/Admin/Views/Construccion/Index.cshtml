@@ -1,0 +1,744 @@
+﻿@model Modelos.ViewModels.Propiedades.ConstruccionViewModel
+
+@{
+    ViewData["Title"] = "Construcción";
+}
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/loader.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<style>
+    .my-custom-scrollbar {
+        position: relative;
+        height: 250px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+</style>
+
+<section class="content mt-3">
+    <input type="hidden" asp-for="Id" id="idConstruccion" />
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="profile-username text-center">CONSTRUCCIÓN : <strong> @Html.DisplayFor(model => model.Descripcion)</strong></h3>
+        </div>
+          <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-4">
+                    <h3 class="text-primary"><i class="fas fa-hammer"></i> DETALLES </h3>
+                    <a href="/Admin/Construccion/Galeria/?id=@Html.DisplayFor(model => model.Id)"
+                       class="btn btn-success form-control text-white m-1" style="text-decoration:none">Galería</a>
+                    <div class="text-muted">
+                        <p class="text-sm">
+                            <h5>Estado</h5>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch3" asp-for="Status">
+                                    <label class="custom-control-label" for="customSwitch3"> @Html.DisplayFor(model => model.Estado) </label>
+                                </div>
+                            </div>
+                        </p>
+                        <p class="text-sm">
+                            <div class="form-group">
+                                <h5>Fecha de registro</h5>
+                                <label> @Html.DisplayFor(model => model.FechaRegistra) </label>
+                            </div>
+                        </p>
+                    </div>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            * Medida : @Html.DisplayFor(model => model.Medida) @Html.DisplayFor(model => model.Siglas)
+                        </li>
+                        <li>
+                            * Antiguedad : @Html.DisplayFor(model => model.Antiguedad)
+                        </li>
+                        <li>
+                            * Estado Físico : @Html.DisplayFor(model => model.EstadoFisico)
+                        </li>
+                        <li>
+                            * Visualización : @Html.DisplayFor(model => model.TipoVisualizacion)
+                        </li>
+                    </ul>
+                    <div class="text-center mt-5 mb-3">
+                        <button type="button" id="btnEditarInformacionConstruccion" class="btn btn-sm btn-primary">Editar Información</button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-8">
+
+                    <div id="ocultarFormularioEditar">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <label for="inputStatus">Tipo de medida</label>
+                                        <input asp-for="Medida" type="number" class="form-control" placeholder="Cantidad" id="totalMedida" min="0" />
+                                        <br />
+                                        <select asp-for="TipoMedidadId" asp-items="Model.TipoMedida" id="idTipoMedida"
+                                                name="tipoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="TipoMedidadId" id="ErrorTipoMedida" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <label for="inputStatus">Periodo</label>
+                                        <input asp-for="TotalPeriodo" type="number" class="form-control" placeholder="Cantidad" id="totalPeriodo" min="0" />
+                                        <br />
+                                        <select asp-for="PeriodoId" asp-items="Model.Periodo" id="idTipoPeriodo"
+                                                name="idTipoPeriodo" class="form-control"></select>
+                                        <span asp-validation-for="PeriodoId" id="ErrorTipoPeriodo" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <label for="inputStatus">Tipo de visualización</label>
+                                        <select asp-for="VisualizacionId" asp-items="Model.Visualizacion" id="idTipoVisualizacion"
+                                                name="tipoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="VisualizacionId" id="ErrorTipoVisualizacion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <label for="inputStatus">Estado físico</label>
+                                        <select asp-for="EstadoFisicoId" asp-items="Model.EstadoFisicoConstruccion" id="idTipoEstadoFisico"
+                                                name="idTipoEstadoFisico" class="form-control"></select>
+                                        <span asp-validation-for="EstadoFisicoId" id="ErrorTipoEstadoFisico" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <button id="btnAgregarDatosInicialesPropiedad" class="btn btn-success"> Guardar </button>
+                                        <button id="btnCancelar" class="btn btn-success"> Cancelar </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h4>Divisiones</h4>
+                                    <hr />
+                                </div>
+
+                                <div class=" col-2">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-divisiones">Agregar</button>
+
+                                </div>
+
+                            </div>
+                            <div class="post">
+                                <div class="active tab-pane">
+
+                                    <table id="tblDivisionesAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                        <thead>
+                                            <tr class="bg-gradient-gray-dark">
+                                                <th>Id</th>
+                                                <th>Nombre</th>
+                                                <th>Nombre Descriptivo</th>
+                                                <th>Observación</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    <h4>Características de la construcción</h4>
+                                    <hr />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-caracteristicas">Agregar</button>
+                                </div>
+
+
+                            </div>
+                            <div class="post">
+                                <div class="active tab-pane">
+
+                                    <table id="tblCaracteristicasAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                        <thead>
+                                            <tr class="bg-gradient-dark">
+                                                <th>Id</th>
+                                                <th>Descripcion</th>
+                                                <th>Cantidad</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    <h4>Equipamientos</h4>
+                                    <hr />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-equipamientos">Agregar</button>
+                                </div>
+                            </div>
+                            <div class="post">
+                                <div class="active tab-pane">
+
+                                    <table id="tblEquipamientosAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                        <thead>
+                                            <tr class="bg-gradient-dark">
+                                                <th>Id</th>
+                                                <th>Descripcion</th>
+                                                <th>Cantidad</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-10">
+                                    <h4>Tipos de cableado</h4>
+                                    <hr />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-tipos-cableado">Agregar</button>
+                                </div>
+                            </div>
+                            <div class="post">
+                                <div class="active tab-pane">
+
+                                    <table id="tblTiposCableadoAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                        <thead>
+                                            <tr class="bg-gradient-dark">
+                                                <th>Id</th>
+                                                <th>Tipo</th>
+                                                <th>Observación</th>
+                                                <th>Entubado</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+
+
+
+@*---------------------------------------------- SECCION DE MODALES------------------------------------------------------------ *@
+
+@* modal para agregar equipamientos *@
+
+<div class="modal fade" id="modal-lg-agregar-equipamientos" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Listado de equipamientos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <table id="tblEquipamientos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descripción</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR DIVISIONES A LA CONSTRUCCION *@
+<div class="modal fade" id="modal-lg-agregar-divisiones" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i>  Agregar división</h4>
+                <button type="button" id="cerrarModalAgregarDivision" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <!-- /.card-header -->
+                                        <!-- form start -->
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formDivision" class="m-2">
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Tipo de división</label>
+                                                        <select id="tipoDivision" name="tipoDivision" class="form-control"></select>
+                                                        <span id="ErrorTipoDivision" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Nombre descriptivo</label>
+                                                        <input type="text" id="nombreDescriptivo" placeholder="Nombre Descriptivo"
+                                                               class="form-control">
+                                                        <span id="ErrorNombreDescriptivoDivision" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Observación adicional</label>
+                                                        <textarea type="text" id="observacion" placeholder="Observación"
+                                                                  class="form-control"></textarea>
+                                                        <span id="ErrorObservacionDivision" class="text-danger"></span>
+                                                    </div>
+                                                    <input type="submit" value="Guardar" class="btn btn-success btn-block">
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Form Element sizes -->
+                                    <form id="formMateriales">
+                                        <div class="card card-success">
+                                            <div class="card-body">
+                                                <div class="card-header bg-cyan m-2">
+                                                    <h3 class="card-title">Agregar materiales</h3>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputStatus">Tipo de material</label>
+                                                    <select id="tipoMaterial" name="tipoMaterial" class="form-control"></select>
+                                                    <span id="ErrorTipoMaterial" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputStatus">Descripción</label>
+                                                    <textarea type="text" id="descripcionMaterial" placeholder="Descripción"
+                                                              class="form-control"></textarea>
+                                                </div>
+                                                <input type="submit" value="Agregar Material" class="btn btn-dark btn-block">
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+                                    </form>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+
+                            <!-- LISTA DE MATERIALES -->
+
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                <table class="table table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nombre Material</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaMateriales">
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarDivision" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR UNA DIVISION DE LA CONSTRUCCION *@
+<div class="modal fade" id="modal-lg-editar-division" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i>  Editar división</h4>
+                <button type="button" id="cerrarModalEditarDivision" class="close" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <!-- /.card-header -->
+                                        <!-- form start -->
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formDivisionEditar" class="m-2">
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Tipo de división : </label>
+                                                        <input type="hidden" asp-for="Id" id="idDivision" />
+                                                        <input type="hidden" asp-for="Id" id="idConstruccionDivision" />
+                                                        <label id="nombreDivision" class="text-center"></label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Nombre descriptivo</label>
+                                                        <input type="text" id="nombreDescriptivoDivision" placeholder="Nombre Descriptivo"
+                                                               class="form-control">
+                                                        <span id="ErrorNombreDescriptivoDivisionEdit" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Observacion adicional</label>
+                                                        <textarea type="text" id="observacionAdicionalDivision" placeholder="Observación"
+                                                                  class="form-control"></textarea>
+                                                        <span id="ErrorObservacionDivisionEdit" class="text-danger"></span>
+                                                    </div>
+                                                    <input type="submit" value="Guardar" class="btn btn-success btn-block">
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Form Element sizes -->
+                                    <form id="formMaterialesEditar">
+                                        <div class="card card-success">
+                                            <div class="card-body">
+                                                <div class="card-header bg-cyan m-2">
+                                                    <h3 class="card-title">Agregar materiales</h3>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputStatus">Tipo de material</label>
+                                                    <select id="tipoMaterialDivision" name="tipoMaterialDivision" class="form-control"></select>
+                                                    <span id="ErrorTipoMaterialDivision" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputStatus">Descripción</label>
+                                                    <textarea type="text" id="descripcionMaterialDivision" placeholder="Descripción"
+                                                              class="form-control"></textarea>
+                                                </div>
+                                                <input type="submit" value="Agregar" class="btn btn-dark btn-block">
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+                                    </form>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+
+                            <!-- LISTA DE MATERIALES -->
+
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                <table class="table table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nombre Material</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaMaterialesDivision">
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="btnCerrarEditarDivision">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar caracteristicas de la CONSTRUCCION *@
+<div class="modal fade" id="modal-lg-agregar-caracteristicas" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Listado de características</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <table id="tblCaracteristicas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descripción</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar un tipo de cableado de una propiedad *@
+<div class="modal fade" id="modal-lg-editar-tipoCableado" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i>  Editar tipo de cableado</h4>
+                <button type="button" id="cerrarModalEditarTipoCableado" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Form Element sizes -->
+                                    <form id="formTipoCableadoEditar">
+                                        <div class="card card-success">
+
+                                            <div class="row">
+
+                                                <div class="col-md-12 m-3">
+
+                                                    <h3 id="nombreTipoCableado"></h3>
+                                                    <input type="hidden" asp-for="Id" id="idConstruccionCableado" />
+
+                                                    <div class="form-group text-center">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" value="Si" name="checkEntubadoEdit" id="checkEntubadoEdit">
+                                                            <label class="form-check-label">¿Es entubado?</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="card-body">
+
+                                                    <div class="form-group text-center">
+                                                        <textarea type="text" id="observacionCableadoEdit" placeholder="Observación"
+                                                                  class="form-control"></textarea>
+                                                        <span id="ErrorObservacionEntubadoEdit" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- /.card-body -->
+                                        </div>
+                                    </form>
+                                    <!-- /.card -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <input type="button" value="Cancelar" id="btnCancelarEditarTipoCableado" data-dismiss="modal" class="btn btn-warning">
+                    <input type="button" value="Guardar" id="btnGuardarTiposCableadoEdit" class="btn btn-success">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR TIPOS DE CABLEADO A LA CONSTRUCCION *@
+<div class="modal fade" id="modal-lg-agregar-tipos-cableado" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i>  Agregar tipos de cableado</h4>
+                <button type="button" id="cerrarModalAgregarCableado" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Form Element sizes -->
+                                    <form id="formTipoCableado">
+                                        <div class="card card-success">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6 m-3">
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Tipo de cableado</label>
+                                                        <select id="tipoCableado" name="tipoCableado" class="form-control"></select>
+                                                        <span id="ErrorTipoCableado" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-3">
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" value="Si" name="checkEntubado" id="checkEntubado">
+                                                            <label class="form-check-label">¿Es entubado?</label>
+                                                            <span id="ErrorCheckTipoEntubado" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 text-center">
+                                                <div class="card-body">
+
+                                                    <div class="form-group">
+                                                        <label for="inputStatus">Observación</label>
+                                                        <textarea type="text" id="observacionCableado" placeholder="Observación"
+                                                                  class="form-control"></textarea>
+                                                        <span id="ErrorObservacionEntubado" class="text-danger"></span>
+                                                    </div>
+                                                    <input type="submit" value="Agregar Tipo Cableado" class="btn btn-dark">
+                                                </div>
+                                            </div>
+
+                                            <!-- /.card-body -->
+                                        </div>
+                                    </form>
+                                    <!-- /.card -->
+                                </div>
+
+                            </div>
+
+                            <!-- LISTA DE TIPOS DE CABLE -->
+
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                <table class="table table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Tipo Cableado</th>
+                                            <th scope="col">Observación</th>
+                                            <th scope="col">Entubado</th>
+                                            <th scope="col">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaTiposCableado">
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" id="btnCancelarAgregarCableado">Cancelar</button>
+                    <input type="button" value="Guardar" id="btnGuardarTiposCableado" class="btn btn-success">
+
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts {
+
+        <script src="~/js/logicaSitio/Construccion/TablasConstruccion.js"></script>
+        <script src="~/js/logicaSitio/Construccion/EditarConstruccion.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

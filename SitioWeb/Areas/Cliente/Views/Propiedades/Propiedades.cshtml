@@ -1,0 +1,213 @@
+﻿@model Modelos.ViewModels.FrontEnd.Propiedades.PropiedadesBusquedaViewModel
+
+<section class="listing_one_wrap">
+    <section class="page-header" style="        background-image: url(/ContentCliente/assets/images/backgrounds/bannerProp.jpg);
+        padding: 50px 0px 40px
+">
+        <div class="container">
+            <div class="page-header-inner">
+                <h2>BUSCA TU PROPIEDAD</h2>
+               
+                <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                    Volver a inicio
+                </a>
+            </div>
+        </div>
+    </section>
+    @*<div class="container" style="margin-top:35px">
+        <form id="formFiltrado" class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-3">
+                    <div class="listing_one_content_right_input_box">
+                        <h4 class="title">Seleccionar categoría de Propiedad</h4>
+                        <select class="selectpicker" id="tipoPropiedades" data-width="100%">
+
+                            <option selected="selected" value="Todas">Todas</option>
+                            <option value="Comercial">COMERCIAL</option>
+                            <option value="Finca">FINCA</option>
+                            <option value="Industrial">INDUSTRIAL</option>
+                            <option value="Turistico">TURISTICO</option>
+                            <option value="Residencial">RESIDENCIAL</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div class="listing_one_content_right_input_box">
+                        <h4 class="title">Elige Localizacion</h4>
+
+                        <select class="selectpicker" id="provincias" data-width="100%">
+                            <option selected="selected" value="Todas">Todas las provincias</option>
+                            <option value="Alajuela">Alajuela</option>
+                            <option value="San Jose">San Jose</option>
+                            <option value="Guanacaste">Guanacaste</option>
+                            <option value="Limon">Limon</option>
+                            <option value="Cartago">Cartago</option>
+                            <option value="Heredia">Heredia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 text-center">
+                <div class="form-group col-md-3">
+                    <label for="inputStatus">Tipo de moneda</label>
+                    <select class="selectpicker" id="tipoMonedas" name="tipoMonedas" data-width="100%">
+                        <option selected="selected" value="Colones">₡ Colones</option>
+                        <option value="Dolares">$ Dólares</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputStatus">Precio mínimo</label>
+                    <select asp-for="ValoresMinimos" asp-items="Model.ValoresMinimos" id="idValoresMinimos"
+                            name="valoresMinimos">
+                        <option selected="selected" value="0"> 0 </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputStatus">Precio máximo</label>
+                    <select asp-for="ValoresMaximos" asp-items="Model.ValoresMaximos" id="idValoresMaximos"
+                            name="valoresMaximos">
+                        <option selected="selected" value="0"> 0 </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter_by_tags text-center m-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div>
+                            <input type="radio" id="radioVistaPlaya" value="Vista a la playa" name="radioVista">
+                            <label><span></span>Vista a la playa</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div>
+                            <input type="radio" id="radioVistaMontana" value="Vista a la montaña" name="radioVista">
+                            <label><span></span>Vista a la montaña</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div>
+                            <input type="radio" id="radioVistaValle" value="Vista al valle" name="radioVista">
+                            <label><span></span>Vista al valle</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <button type="submit" id="submitBtn" class="thm-btn banner_one_search_btn m-5" style="cursor:pointer;">
+                        Buscar Propiedad
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>*@
+
+    @*/*Vista parcial para mostrar las propiedades del cliente*/*@
+    @if (Model.Propiedades != null)
+    {
+        
+    }
+    else
+    {
+        <div id="ListadoPropiedades">
+            <partial name="~/Areas/Cliente/Views/Propiedades/_ListadoPropiedades.cshtml" model="@Model.Propiedades" />
+        </div>
+
+    } 
+</section>
+
+<section class="latest_properties" style="margin:-80px 25px 0px 25px; padding:118px 0px 0px">
+    <div class="container-box">
+                    <div class="row">
+                        @* Recorre cada propiedad *@
+                        @for (int i = 0; i < Model.DatosPropiedad.Count; i++)
+                        {
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="latest_properties_single">
+                                    <div class="latest_properties_img_carousel owl-theme owl-carousel">
+                                        @* Recorre el listado de imagenes de cada propiedad *@
+                                        @for (int j = 0; j < Model.DatosPropiedad[i].ImagenesPropiedad.Count; j++)
+                                        {
+                                            <div>
+                                                <img width="370" height="282" src="@Model.DatosPropiedad[i].ImagenesPropiedad[j].Ruta" alt="@Model.DatosPropiedad[i].ImagenesPropiedad[j].Titulo">
+                                            </div>
+                                        }
+                                    </div>
+
+                                    @* Pinta la parte de abajo de cada propiedad *@
+                                    <div class="latest_properties_content">
+                                        <div class="latest_properties_top_content  newText_Properties">
+                                            <h4>
+                                                <a href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad">@Model.DatosPropiedad[i].UsoPropiedad</a>
+
+                                            </h4>
+
+                                            <p>  @Model.DatosPropiedad[i].Distrito, @Model.DatosPropiedad[i].Provincia</p>
+
+                                            @{var precio = string.Format("{0,12:0,000.00}", Model.DatosPropiedad[i].PrecioMaximo);
+                                            }
+                                            @if (Model.DatosPropiedad[i].Moneda != "Colones")
+                                            {
+                                                <h3>$ @precio</h3>
+                                            }
+                                            else
+                                            {
+                                                <h3>₡ @precio</h3>
+                                            }
+                                            <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad"><i class="fas fa-images"></i> </a>
+                                            <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.DatosPropiedad[i].IdPropiedad">Ver detalles</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+        </div>
+       
+    </div>
+</section>
+   
+
+<section style="padding: 0px 0px 20px">
+    <div class="container">
+        <div class="row">
+            <div class="container-fluid mt-2 bg-white">
+                <div class="row mb-2">
+                    <div class="col-12 text-center">
+                        <h2 class="text-black">Filtrado Avanzado Propiedades </h2>
+                    </div>
+                </div>
+
+                <table id="tblPropiedadesHome" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Tipo </th>
+                            <th>Uso</th>
+                            <th>Ubicación</th>
+                            <th>Medida</th>
+                            <th>₡/$</th>
+                            <th>Precio</th>
+                            <th>Intención</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section scripts {
+
+    <script src="~/js/logicaSitio/Inicio/index.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

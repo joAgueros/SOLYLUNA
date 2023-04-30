@@ -1,0 +1,1539 @@
+﻿
+@model Modelos.ViewModels.Propiedades.VerPropiedadViewModel
+
+@{
+    ViewData["Title"] = "Propiedades";
+    var precioMaxFormat = string.Format("{0,12:0,000.00}", Model.PrecioMaximo);
+    var precioMinFormat = string.Format("{0,12:0,000.00}", Model.PrecioMinimo);
+    string medidaFormat = Convert.ToString(Model.TotalMedida).Replace(",00", "");
+
+} 
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/favicons/logoico-02.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<section class="container-fluid content m-3">
+
+    <input type="hidden" asp-for="IdPropiedad" id="idPropiedad" />
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <p>CÓDIGO PROPIEDAD</p>
+                    <h3>@Html.DisplayFor(model => model.CodigoTipoUsoPropiedad)</h3>
+                    <p>ID: @Html.DisplayFor(model => model.IdPropiedad)</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-home"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-6" style="text-align:end; align-self:center;">
+            <a href="/Admin/Vendedor/VerRegistroVendedor/@Model.IdClienteVendedor"
+               class="btn btn-info" data-dismiss="modal"><i class="fas fa-backward"> </i> Volver </a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Información de la propiedad (@Html.DisplayFor(model => model.CodigoTipoUsoPropiedad))</h3>
+        </div>
+        <div class="card-body">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="callout callout-danger col-md-4">
+                            <h5>Estado</h5>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch3" asp-for="Estado">
+                                    <label class="custom-control-label" for="customSwitch3"> </label>
+                                </div>
+                            </div>
+                            <h5> Publicado </h5>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch4" asp-for="Publicado">
+                                    <label class="custom-control-label" for="customSwitch4"> </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="callout callout-danger">
+
+                                <div class="row">
+
+                                    <div class="col-md-4" >
+                                        
+                                        <a href="/Admin/Propiedad/EditarPropiedad/?id=@Html.DisplayFor(model => model.IdPropiedad)"
+                                           class="btn btn-success form-control text-white" style="text-decoration:none"><span class="info-box-icon"><i class="fas fa-edit"></i></span> Editar</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        
+                                        <a href="/Admin/Propiedad/Galeria/?id=@Html.DisplayFor(model => model.IdPropiedad)"
+                                           class="btn btn-success form-control text-white" style="text-decoration:none"> <span class="info-box-icon"><i class="fas fa-camera"></i></span> Galería</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        
+                                        <a href="/Admin/Propiedad/Bitacora"
+                                           class="btn btn-success form-control text-white" style="text-decoration:none"><span class="info-box-icon"><i class="fas fa-list-alt"></i></span> Bitácora</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-12">
+                            <div class="info-box bg-gradient-info">
+                                <span class="info-box-icon"><i class="fas fa-map-marked-alt"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Dirección</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.DireccionExacta)</span>
+
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        @Html.DisplayFor(model => model.Provincia), @Html.DisplayFor(model => model.Canton), @Html.DisplayFor(model => model.Distrito)
+                                    </span>
+                                    @{
+                                        if (!string.IsNullOrEmpty(Model.BarrioPoblado))
+                                        {
+                                            <span class="progress-description">
+                                                @Html.DisplayFor(model => model.BarrioPoblado)
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box bg-gradient-success">
+                                <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Cantidad Me Gusta</span>
+                                    <span class="info-box-text"> @Html.DisplayFor(model => model.TotalMeGusta) </span>
+
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box bg-gradient-warning">
+                                <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Fecha registro</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.FechaRegistra)</span>
+
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box bg-gradient-danger">
+                                <span class="info-box-icon"><i class="fas fa-comments"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Intención</span>
+                                    <span class="info-box-text"
+                                          >@Html.DisplayFor(model => model.Intencion)</span>
+
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info"><i class="fas fa-home"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Tipo Propiedad </span>
+                                    <span class="info-box-text"> @Html.DisplayFor(model => model.TipoPropiedad) </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info"><i class="	far fa-building"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Uso Propiedad</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.UsoPropiedad)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info"><i class="fas fa-ruler-combined"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number"> Medida </span>
+                                    <span class="info-box-text"> @medidaFormat (@Html.DisplayFor(model => model.DescripcionMedida)) </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info"><i class="fas fa-route"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Uso suelo</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.UsoSuelo)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info"><i class="fas fa-route"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Topografía</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.TopografiaSeleccionada)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-success"><i class="fas fa-road"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Nive calle</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.NivelCalleSeleccionada)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-green"><i class="fas fa-hiking"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Tipo Acceso</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.TipoAcceso)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-green"><i class="	fas fa-shoe-prints"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Estado acceso</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.EstadoAcceso)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger"><i class="far fa-map"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Número finca</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.NumeroFinca)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger"><i class="far fa-map"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Número plano</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.NumeroPlano)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger"><i class="fas fa-money-bill"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Precio máximo</span>
+                                    @if (Model.Moneda != "Colones")
+                                    {
+                                        <span class="info-box-text"><span>$</span> @precioMaxFormat</span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="info-box-text"><span>₡</span> @precioMaxFormat</span>
+                                    }
+
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger"><i class="fas fa-money-bill"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Precio mínimo</span>
+                                    @if (Model.Moneda != "Colones")
+                                    {
+                                        <span class="info-box-text"><span>$</span> @precioMinFormat</span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="info-box-text"><span>₡</span> @precioMinFormat</span>
+                                    }
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger"><i class="fas fa-money-bill"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Mantenimiento</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.CuotaMantenimiento)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-blue"><i class="fas fa-glass-whiskey"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Tipo Pozo</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.Pozo)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-blue"><i class="fas fa-glass-whiskey"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Estado Pozo</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.EstatusPozo)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-blue"><i class="	fas fa-tint"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-number">Disp. agua</span>
+                                    <span class="info-box-text">@Html.DisplayFor(model => model.DisponeAgua)</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="card card-cyan">
+                            <div class="card-header">
+                                <h3 class="card-title"> <strong>Detalles de la propiedad</strong></h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>LISTADO DE CONSTRUCCIONES</strong></h3>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="construccion">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" id="btnAgregarConstruccion">
+                                                            Agregar Construcción
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblConstrucciones" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Descripción</th>
+                                                            <th>Fecha Registro</th>
+                                                            <th>Estado</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @***********************@
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Listado de Caracteristicas de la Propiedad</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="active tab-content">
+                                            <div class="active tab-pane" id="caractPropiedad">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-caracteristicas">Agregar características</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblCaracteristicasAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Descripción</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @***********************@
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Listado de Servicios Municipales de la Propiedad</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+
+                                            <div class="active tab-pane" id="servMunicipales">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-servMunicipales">Nuevo Servicio</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblServiciosMunicipalesAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Servicio</th>
+                                                            <th>Costo</th>
+                                                            <th>Cuota</th>
+                                                            <th>Estado</th>
+                                                            <th>Observación</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @***********************@
+
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Listado de Servicios Públicos de la Propiedad</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+
+
+                                            <div class="active tab-pane" id="servPublicos">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-servicioPublico">Nuevo Servicio</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblServiciosPublicosAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Empresa</th>
+                                                            <th>Distancia Km</th>
+                                                            <th>Servicio</th>
+                                                            <th>Costo</th>
+                                                            <th>Estado</th>
+                                                            <th>Observación</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @***********************@
+
+
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Listado de Documentos de la Propiedad</strong> </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="active tab-content">
+
+                                            <div class="active tab-pane" id="documentos">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-documento">Nuevo Documento</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblDocumentosAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Documento</th>
+                                                            <th>Vencimiento</th>
+                                                            <th>Recepción</th>
+                                                            <th>Notas</th>
+                                                            <th>Fecha Registro</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @***********************@
+
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Legal de la Propiedad</strong> </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+
+                                            <div class="active tab-pane" id="legal">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-situacionLegal">Nueva Situación</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblSituacionLegalAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Entidad</th>
+                                                            <th>Servicio</th>
+                                                            <th>Costo</th>
+                                                            <th>Cuota</th>
+                                                            <th>Estado</th>
+                                                            <th>Observación</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @***********************@
+                            @***********************@
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><strong>Cercanías a la Propiedad</strong> </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+
+                                            <div class="active tab-pane" id="accesos">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-12 text-left ">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-acceso">Nuevo acceso</button>
+                                                    </div>
+                                                </div>
+
+                                                <table id="tblAccesibilidades" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                    <thead>
+                                                        <tr class="bg-gradient-dark">
+                                                            <th>Id</th>
+                                                            <th>Tipo Recorrido</th>
+                                                            <th>Distancia Km</th>
+                                                            <th>Descripción</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @***********************@
+
+                        </div>
+
+                    </div>
+
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Intermediarios</strong>  </h3>
+                        </div>
+                        <div class="row mb-2 m-4">
+                            <div class="col-12 text-left ">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-intermediarios">Agregar Intermediario</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="container mt-2">
+
+                                <table id="tblIntermediariosAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                    <thead>
+                                        <tr class="bg-gradient-dark">
+                                            <th>Id</th>
+                                            <th>Nombre Completo</th>
+                                            <th>Identificación</th>
+                                            <th>Tipo</th>
+                                            <th>Correo</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+</section>
+
+
+@* MODALES *@
+
+@* modal para agregar caracteristicas de la PROPIEDAD *@
+<div class="modal fade" id="modal-lg-agregar-caracteristicas" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Listado de características</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <table id="tblCaracteristicas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descripción</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@***********************@
+
+@***********************@
+@* modal para agregar servicios municipales de la propiedad *@
+<div class="modal fade" id="modal-lg-agregar-servMunicipales" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg-6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Servicio municipal</h4>
+                <button type="button" id="CerrarModalAgregarServicioMunicipal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="A" name="checkActivo" id="checkActivo">
+                                    <label class="form-check-label">Activo</label>
+                                    <span id="ErrorCheckActivo" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label for="inputStatus">Servicio Municipal</label>
+                                <select id="idServMunicipal"
+                                        name="ServicioMunicipal" class="form-control"></select>
+                                <span id="ErrorServicioMunicipal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Cuota</label>
+                                <select id="idCuota"
+                                        name="TipoCuota" class="form-control"></select>
+                                <span id="ErrorTipoCuota" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Costo</label>
+                                <input type="number" name="name" id="costo" class="form-control" value="0" min="0" step="1000" style="width:100%;" />
+                                <span id="ErrorCostoServicioMunicipal" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionServicioMunicipal"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionServicioMunicipal" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between rounded">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalAgregarServicioMunicipal">Cancelar</button>
+                    <button id="btnEnviarDatosServMunicipal" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar un servicio municipal de la propiedad *@
+<div class="modal fade" id="modal-lg-editar-servMunicipal" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg-6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar Servicio Municipal</h4>
+                <button type="button" id="CerrarModalEditarServicioMunicipal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="I" name="checkActivoEdit" id="checkActivoEdit">
+                                    <label class="form-check-label">Activo</label>
+                                    <span id="ErrorCheckActivoEdit" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idServicioMunicipal" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Cuota</label>
+                            <div>
+                                <input type="hidden" id="idTipoCuotaActual" />
+                                <button class="btn btn-outline-success" id="btnActivarComboCuotasEdit" style=" cursor: pointer;" />
+                            </div>
+                            <select id="idCuotaEdit"
+                                    name="idCuotaEdit" class="form-control"></select>
+                            <span id="ErrorTipoCuotaEdit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Servicio Municipal</label>
+                            <div>
+                                <input type="hidden" id="idTipoServMunicipalActual" />
+                                <button class="btn btn-outline-success" id="btnActivarComboTipoServicioEdit" style="cursor:pointer" />
+                            </div>
+                            <select id="idServMunicipalEdit"
+                                    name="idServMunicipalEdit" class="form-control"></select>
+                            <span id="ErrorServicioMunicipalEdit" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group col-md-6">
+                                <label for="inputStatus">Costo</label>
+                                <input type="number" name="name" id="costoEdit" class="form-control" value="0" min="0" step="1000" />
+                                <span id="ErrorCostoServicioMunicipalEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionServicioMunicipalEdit"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionServicioMunicipalEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalEditarServicioMunicipal">Cancelar</button>
+                    <button id="btnEditarDatosServMunicipal" type="submit" class="btn btn-success"> Guardar </button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar situacion de la propiedad *@
+<div class="modal fade" id="modal-lg-agregar-situacionLegal" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Situación Legal</h4>
+                <button type="button" id="cerrarModalAgregarSituacionLegal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="A" name="checkActivoSituacion" id="checkActivoSituacion">
+                                    <label class="form-check-label">Activo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de cuota</label>
+                            <select id="idCuotaSituacion"
+                                    name="idCuotaSituacion" class="form-control"></select>
+                            <span id="ErrorTipoCuotaLegal" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de Situación</label>
+                            <select id="idTipoSituacion"
+                                    name="idTipoSituacion" class="form-control"></select>
+                            <span id="ErrorTipoSituacionLegal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="inputStatus">Monto</label>
+                                <input type="number" name="name" id="monto" class="form-control" value="0" min="0" step="1000" />
+                                <span id="ErrorTipoMontoSituacioLegal" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="inputStatus">Nombre de entidad</label>
+                                <input type="text" id="nombreEntidad"
+                                       placeholder="Nombre de Entidad" class="form-control" />
+                                <span id="ErrorEntidadSituacioLegal" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionSituacionLegal"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionSituacioLegal" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalAgregarSituacionLegal">Cancelar</button>
+                    <button id="btnEnviarDatosSituacion" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar situacion de la propiedad *@
+<div class="modal fade" id="modal-lg-editar-situacionLegal" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar Situación Legal</h4>
+                <button type="button" id="cerrarModalEditarSituacionLegal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="A"
+                                           name="checkActivoSituacionEdit"
+                                           id="checkActivoSituacionEdit">
+                                    <label class="form-check-label">Activo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idSituacionLegalPropiedad" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de Cuota</label>
+                            <div>
+                                <input type="hidden" id="idTipoCuotaSituacionActual" />
+                                <button class="btn btn-outline-success" id="btnActivarComboCuotasSituacionEdit" style="cursor:pointer" />
+                            </div>
+                            <select id="idCuotaSituacionEdit"
+                                    name="idCuotaSituacionEdit" class="form-control"></select>
+                            <span id="ErrorTipoCuotaSituacionEdit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de Situación</label>
+                            <div>
+                                <input type="hidden" id="idTipoSituacionLegalActual" />
+                                <button class="btn btn-outline-success" id="btnActivarComboTipoSituacionEdit" style="cursor:pointer" />
+                            </div>
+                            <select id="idTipoSituacionEdit"
+                                    name="idTipoSituacionEdit" class="form-control"></select>
+                            <span id="ErrorTipoSituacionEdit" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="inputStatus">Monto</label>
+                                <input type="number" id="montoEdit" class="form-control" value="0" min="0" step="1000" />
+                                <span id="ErrorMontoSituacionEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="inputStatus">Nombre de entidad</label>
+                                <input type="text" id="nombreEntidadEdit"
+                                       placeholder="Nombre de Entidad" class="form-control" />
+                                <span id="ErrorNombreEntidadEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionSituacionLegalEdit"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionSituacionLegalEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalEditarSituacionLegal">Cancelar</button>
+                    <button id="btnEnviarDatosSituacionEdit" type="submit" class="btn btn-success"> Guardar </button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar servicio publico de la propiedad *@
+<div class="modal fade" id="modal-lg-agregar-servicioPublico" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg-12">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Servicio Público</h4>
+                <button type="button" class="close" id="cerrarModalAgregarServicioPublico" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="A"
+                                           name="checkActivoServicioPublico"
+                                           id="checkActivoServicioPublico">
+                                    <label class="form-check-label"><span for="inputStatus">Activo</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de Servicio público</label>
+                            <select id="idServicioPublico"
+                                    name="idServicioPublico" class="form-control"></select>
+                            <span id="ErrorTipoServicioPublico" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Nombre de empresa</label>
+                                <input type="text" id="nombreEmpresa"
+                                       placeholder="Empresa" class="form-control" />
+                                <span id="ErrorNombreEmpresa" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Costo</label>
+                                <input type="number" id="costoServicio" class="form-control" value="0" min="0" step="1000" />
+                                <span id="ErrorCostoServicioPublico" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Distancia en Kilómetros</label>
+                                <input type="number" id="distanciaEmpresa"
+                                       placeholder="Distancia" class="form-control" value="0" min="0" step="1" />
+                                <span id="ErrorDistanciaServicioPublico" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionServicioPublico"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionServicioPublico" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalAgregarServicioPublico">Cancelar</button>
+                    <button id="btnEnviarDatosServicioPublico" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar servicio publico de la propiedad *@
+<div class="modal fade" id="modal-lg-editar-servicioPublico" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar Servicio Público</h4>
+                <button type="button" class="close" id="cerrarModalEditarServicioPublico" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="A"
+                                           name="checkActivoServicioPublicoEdit"
+                                           id="checkActivoServicioPublicoEdit">
+                                    <label class="form-check-label">Activo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="idServicioPublico" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputStatus">Tipo de Servicio público</label>
+                            <div>
+                                <input type="hidden" id="idTipoServicioPublico" />
+                                <button class="btn btn-outline-success" id="btnActivarTipoServPublicoEdit" style="cursor:pointer" />
+                            </div>
+                            <select id="idServicioPublicoEdit"
+                                    name="idServicioPublicoEdit" class="form-control"></select>
+                            <span id="ErrorTipoServicioPublicoEdit" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inputStatus">Costo</label>
+                                <input type="number" id="costoServicioEdit" class="form-control" value="0" min="0" step="1000" />
+                                <span id="ErrorCostoServicioPublicoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="inputStatus">Nombre de empresa</label>
+                                <input type="text" id="nombreEmpresaEdit"
+                                       placeholder="Empresa" class="form-control" />
+                                <span id="ErrorNombreEmpresaServicioPublicoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inputStatus">Distancia en Kilómetros</label>
+                                <input type="number" id="distanciaEmpresaEdit"
+                                       placeholder="Distancia" class="form-control" />
+                                <span id="ErrorDistanciaEmpresaServicioPublicoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="inputStatus">Observación</label>
+                                <textarea type="text" id="observacionServicioPublicoEdit"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionServicioPublicoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalEditarServicioPublico">Cancelar</button>
+                    <button id="btnEnviarDatosServicioPublicoEdit" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar los documentos de la propiedad *@
+<div class="modal fade" id="modal-lg-agregar-documento" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Documentos </h4>
+                <button type="button" id="cerrarModalAgregarDocumento" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="S"
+                                           name="checkActivoDocumento"
+                                           id="checkActivoDocumento">
+                                    <label class="form-check-label">Recepción</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de documento</label>
+                                <select id="idTipoDocumento"
+                                        name="idTipoDocumento" class="form-control"></select>
+                                <span id="ErrorTipoDocumento" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Fecha de vencimiento</label>
+                                <input type="text" id="fechaVencimiento"
+                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                <span id="ErrorFechaVencimientoDocumento" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Notas</label>
+                                <textarea type="text" id="notasPropiedad"
+                                          placeholder="Notas" class="form-control"></textarea>
+                                <span id="ErrorNotasSituacionLegal" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarAgregarDocumento">Cancelar</button>
+                    <button id="btnEnviarDatosDocumentos" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar los documentos de la propiedad *@
+<div class="modal fade" id="modal-lg-editar-documento" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Documento </h4>
+                <button type="button" id="cerrarModalEditarDocumento" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="S"
+                                           name="checkActivoDocumentoEdit"
+                                           id="checkActivoDocumentoEdit">
+                                    <label class="form-check-label">Recepción</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idDocumentoPropiedad" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de documento</label>
+                                <div>
+                                    <input type="hidden" id="idTipoDocumento" />
+                                    <button class="btn btn-outline-success" id="btnActivarTipoDocumentoEdit" style="cursor:pointer" />
+                                </div>
+                                <select id="idTipoDocumentoEdit"
+                                        name="idTipoDocumentoEdit" class="form-control"></select>
+                                <span id="ErrorTipoDocumentoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Fecha de vencimiento</label>
+                                <input type="text" id="fechaVencimientoEdit"
+                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                <span id="ErrorFechaVencimientoDocumentoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Notas</label>
+                                <textarea type="text" id="notasPropiedadEdit"
+                                          placeholder="Notas" class="form-control"></textarea>
+                                <span id="ErrorNotasDocumentoPropiedadEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarEditarDocumento">Cancelar</button>
+                    <button id="btnEnviarDatosDocumentosEdit" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar accesos de la propiedad *@
+<div class="modal fade" id="modal-lg-agregar-acceso" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Acceso </h4>
+                <button type="button" id="CerrarModalAgregarAcceso" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de Acceso</label>
+                                <select id="idAcceso"
+                                        name="idAcceso" class="form-control"></select>
+                                <span id="ErrorAcceso" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inputStatus">Distancia en kilómetros</label>
+                                <input type="number" name="recorrido" id="recorrido" class="form-control" value="0" min="0" step="1" />
+                                <span id="ErrorRecorridoAccesoPropiedad" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Descripción</label>
+                                <textarea type="text" id="observacionAcceso"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorDescripcionAcceso" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalAgregarAcceso">Cancelar</button>
+                    <button id="btnEnviarAcceso" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para editar un acceso de la propiedad *@
+<div class="modal fade" id="modal-lg-editar-acceso" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar Acceso </h4>
+                <button type="button" id="CerrarModalEditarRecorrido" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <input type="hidden" id="idRecorrido" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de acceso</label>
+                                <div>
+                                    <input type="hidden" id="idTipoAccesoEdit" />
+                                    <button class="btn btn-outline-success" id="btnActivarTipoAccesoEdit" style="cursor:pointer" />
+                                </div>
+                                <select id="idAccesoEdit"
+                                        name="idAccesoEdit" class="form-control"></select>
+                                <span id="ErrorTipoAccesoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inputStatus">Distancia en kilómetros</label>
+                                <input type="number" name="recorridoEdit" id="recorridoEdit" class="form-control" value="0" min="0" step="1" />
+                                <span id="ErrorRecorridoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Descripción</label>
+                                <textarea type="text" id="observacionAccesoEdit"
+                                          placeholder="Observación" class="form-control"></textarea>
+                                <span id="ErrorObservacionAccesoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarModalEditarRecorrido">Cancelar</button>
+                    <button id="btnEditarDatosRecorrido" type="submit" class="btn btn-success"> Guardar </button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* modal para agregar intermediarios de la PROPIEDAD *@
+<div class="modal fade" id="modal-lg-agregar-intermediarios" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Listado de intermediarios</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <table id="tblIntermediarios" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre Completo</th>
+                                <th>Identificación</th>
+                                <th>Tipo</th>
+                                <th>Correo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts {
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/plugins/jquery-ui/datepicker_language.js"></script>
+    <script src="~/js/logicaSitio/Propiedades/VerPropiedadDetalles.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

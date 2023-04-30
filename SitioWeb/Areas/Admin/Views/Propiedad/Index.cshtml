@@ -1,0 +1,41 @@
+﻿@model Modelos.ViewModels.Propiedades.RegistrarPropiedadViewModel
+
+@{
+    ViewData["Title"] = "Propiedades";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.css" rel="stylesheet"/>
+
+<div class="container-fluid mt-2 bg-white">
+    <div class="row mb-2">
+        <div class="col-12 text-center">
+            <h2 class="text-black"> Lista de Propiedades </h2>
+        </div>
+    </div>
+
+    <table id="tblPropiedades" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Acción</th>
+                <th>Código</th>
+                <th>Tipo </th>
+                <th>Dueño</th>
+                <th>Uso</th>
+                <th>Ubicación</th>
+                <th>Medida</th>
+                <th>Precio Máx.</th>
+                <th>Precio Mín.</th>
+                <th>Topografía</th>
+                <th>Publicación</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section scripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.js"></script>
+    <script src="~/js/logicaSitio/Propiedades/Propiedad.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

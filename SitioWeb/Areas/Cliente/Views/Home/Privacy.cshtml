@@ -1,0 +1,168 @@
+﻿@model Modelos.ViewModels.Prueba.PostViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<select id="comboSexo" class="custom-select">
+</select>
+
+<div class="form-group">
+    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+        <input type="checkbox" class="custom-control-input" id="customSwitch3">
+        <label class="custom-control-label" for="customSwitch3">Activar / desactivar</label>
+    </div>
+</div>
+
+<div id="divTabla">
+
+
+
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Ingrese datos</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="inputNombre" class="col-sm-4 col-form-label">Nombre</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputApellido" class="col-sm-4 col-form-label">Apellidos</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputApellido" placeholder="Apellidos">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="datepicker" class="col-sm-4 col-form-label">Fecha Nacimiento</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="datepicker" placeholder="Fecha Nacimiento">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Foto</label>
+                                <div id="preview"></div>
+                            </div>
+                            <label class="btn btn-primary">
+                                <i class="fa fa-image"></i> Seleccione una foto <input id="btnFoto" type="file" style="display: none;" name="image">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button id="SubmitBtn" type="submit" class="btn btn-primary"> Enviar datos </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<select id="comboPaises" class="custom-select">
+</select>
+
+<select id="comboProvinciaEstado" class="custom-select">
+</select>
+
+<select id="comboCiudad" class="custom-select">
+</select>
+
+<h3>BlogPost</h3>
+<form id="AjaxForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input asp-for="Post.Nombre" id="Nombre" class="form-control input-sm" placeholder="Nombre" />
+                <span asp-validation-for="Post.Nombre" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <input asp-for="Post.Email" id="Email" class="form-control input-sm" placeholder="Email" />
+                <span asp-validation-for="Post.Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <input asp-for="Post.Titulo" id="Titulo" class="form-control input-sm" placeholder="Título" />
+                <span asp-validation-for="Post.Titulo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <textarea asp-for="Post.Comentario" id="Comentario" class="form-control" placeholder="Comentario"></textarea>
+                <span asp-validation-for="Post.Comentario" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div id="ErrorAlert" class="alert alert-danger" style="display:none" role="alert">
+                Error en los datos enviados!
+            </div>
+            <div id="ExitoAlert" class="alert alert-success" style="display:none" role="alert">
+                Datos recibidos correctamente!
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group float-right">
+                <img id="AjaxLoader" alt="Enviando ..." style="display:none" src="~/Images/loading.gif" />
+                &nbsp;&nbsp;
+                <button id="SubmitBtn" type="submit" class="btn btn-primary">
+                    Enviar datos
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<h3>PostList</h3>
+
+@section scripts {
+    <environment include="Development">
+        <script src="~/plugins/jquery/jquery.min.js"></script>
+        <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="~/plugins/jquery-ui/datepicker_language.js"></script>
+        <script src="~/js/logicaSitio/tabla.js"></script>
+        <partial name="_ValidationScriptsPartial" />
+    </environment>
+    <environment exclude="Development">
+        <script src="~/plugins/jquery/jquery.min.js"></script>
+        <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="~/plugins/jquery-ui/datepicker_language.js"></script>
+        <script src="~/js/logicaSitio/tabla.js"></script>
+        <partial name="_ValidationScriptsPartial" />
+    </environment>
+}

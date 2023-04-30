@@ -1,0 +1,1207 @@
+﻿@model Modelos.ViewModels.Clientes.CompradorPropiedadViewModel
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/loader.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<section class="content mt-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="hidden" asp-for="Comprador.IdClienteComprador" id="idClienteComprador" />
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="~/img/usuario.png" alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@Html.DisplayFor(model => model.Comprador.NombreCompleto)</h3>
+                        <a href="/Admin/Comprador/Editar/@Html.DisplayFor(model => model.Comprador.IdClienteComprador)" class="btn btn-primary btn-block"><b><i class="fas fa-pen-alt mr-1"></i>Editar</b></a>
+                        <hr />
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Comprador</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <strong><i class="fas fa-envelope-open mr-1"></i> Correo electrónico </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.CorreoElectronico)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.Provincia),
+                                    @Html.DisplayFor(model => model.Comprador.Canton),
+                                    @Html.DisplayFor(model => model.Comprador.Distrito)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-address-book mr-1"></i> Dirección exacta </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.DireccionExacta)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-phone-alt mr-1"></i> Teléfonos </strong>
+                                <hr />
+                                <strong> Celular </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.TelefonoMovil)
+                                </p>
+                                <strong> Casa </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.TelefonoCasa)
+                                </p>
+                                <strong> Oficina </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.TelefonoOficina)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="far fa-file-alt mr-1"></i> Identificación </strong>
+
+                                <hr />
+                                <strong> Identificación </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.Identificacion)
+                                </p>
+                                <strong> Tipo Identificación </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.TipoIdentificacion)
+                                </p>
+                                <strong> Persona Jurídica </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Comprador.PersonaJuridica)
+                                </p>
+
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <!-- general form elements disabled -->
+                <div class="card card-default">
+                   
+                    <div class="card-header ">
+                        <h3 class="float-left"> <i class="fa fa-home nav-icon"></i> Referencias</h3>
+                        <a style="color:white" href="/Admin/Comprador/"
+                           class="btn btn-info float-right" data-dismiss="modal"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Volver </a>
+                    </div>
+                    <div id="ListadoReferencias">
+                        <partial name="~/Areas/Admin/Views/Comprador/_ReferenciasComprador.cshtml" model="@Model.Referencias" />
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="card card-cyan">
+                        <div class="card-header">
+                            <h3 class="card-title"> <strong>Gestiones</strong></h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><strong>Características requeridas de la propiedad</strong></h3>
+                                        <button type="button" class="btn btn-warning float-right" data-container="body" data-toggle="popover" data-placement="top" data-content="Establesca los parametros necesarios del comprador y alija las propiedades que se adapten a los gustos de @Html.DisplayFor(model => model.Comprador.NombreCompleto)">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </button>
+                                       </div>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="active tab-pane" id="caracteristicas">
+
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-left ">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-caracteristicas">Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <table id="tblCaracteristicasAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                <thead>
+                                                    <tr class="bg-gradient-dark">
+                                                        <th>Id</th>
+                                                        <th>Tipo Propiedad</th>
+                                                        <th>Lugar Compra</th>
+                                                        <th>Posee propiedad</th>
+                                                        <th>Presupuesto</th>
+                                                        <th>Código Propiedad</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @***********************@
+                        @***********************@
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><strong> Gestiones  </strong></h3>
+                                        <button type="button" class="btn btn-warning float-right" data-container="body" data-toggle="popover" data-placement="top" 
+                                                data-content="Agregue en esta sección las gestiones y tiempos de cumplimiento que el comprador y la empresa deben cumplir. Gestiones de envío de información, visitas a la propiedad, reuniones en oficina o lugares externos.">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="active tab-content">
+                                        <div class="active tab-pane" id="gestiones">
+
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-left ">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-gestiones">Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <table id="tblGestionesAdquiridas" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                <thead>
+                                                    <tr class="bg-gradient-dark">
+                                                        <th>Id</th>
+                                                        <th>Descripción</th>
+                                                        <th>Fecha Entrega</th>
+                                                        <th>Fecha Solicitud</th>
+                                                        <th>Entregado</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @***********************@
+                        @***********************@
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><strong> Resultado SUGEF </strong></h3>
+                                        <button type="button" class="btn btn-warning float-right" data-container="body" data-toggle="popover" data-placement="top"
+                                                data-content="Agregue en esta sección si el comprador cumple con los requisitos establecidos por SUGEF.">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+
+                                        <div class="active tab-pane" id="sugef">
+
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-left ">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-sugef">Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <table id="tblResultadosSugef" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                <thead>
+                                                    <tr class="bg-gradient-dark">
+                                                        <th>Id</th>
+                                                        <th>Fecha Registro</th>
+                                                        <th>Resultado</th>
+                                                        <th>Observación</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @***********************@
+
+                        @***********************@
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><strong> Resultado del solicitante </strong></h3>
+                                        <button type="button" class="btn btn-warning float-right" data-container="body" data-toggle="popover" data-placement="top"
+                                                data-content="Sección en la que se deben agregar los multiples resultados del comprador.">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+
+
+                                        <div class="active tab-pane" id="servPublicos">
+
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-left ">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-solicitante">Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <table id="tblResultadosSolicitante" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                <thead>
+                                                    <tr class="bg-gradient-dark">
+                                                        <th>Id</th>
+                                                        <th>Fecha Registro</th>
+                                                        <th>Resultado</th>
+                                                        <th>Observación</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @***********************@
+
+
+                        @***********************@
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title"><strong> Entrega y recepción de documentos</strong> </h3>
+                                    
+                                        <button type="button" class="btn btn-warning float-right" data-container="body" data-toggle="popover" data-placement="top"
+                                                data-content="Fechas de recepción y tipos de docuementos que debe aportar el cliente.">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="active tab-content">
+
+                                        <div class="active tab-pane" id="documentos">
+
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-left ">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-agregar-documento">Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <table id="tblDocumentosAdquiridos" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                <thead>
+                                                    <tr class="bg-gradient-dark">
+                                                        <th>Id</th>
+                                                        <th>Documento</th>
+                                                        <th>Vencimiento</th>
+                                                        <th>Recepción</th>
+                                                        <th>Notas</th>
+                                                        <th>Fecha Registro</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+
+    </div><!-- /.container-fluid COPIAR HASTA ACÁ -->
+</section>
+
+
+@*---------------------------------------- MODALES --------------------------------------*@
+
+@* MODAL PARA AGREGAR CARACTERISTICAS *@
+<div class="modal fade" id="modal-lg-agregar-caracteristicas" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar datos</h4>
+                <button type="button" id="cerrarModalAgregarCaracteristicas" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioCaracteristicas" class="m-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Tipo de propiedad </label>
+                                                                <select id="tipoPropiedad" name="tipoPropiedad" class="form-control"></select>
+                                                                <span id="ErrorTipoPropiedad" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Lugar donde desea comprar</label>
+                                                                <input type="text" id="lugarCompra" placeholder="Lugar"
+                                                                       class="form-control">
+                                                                <span id="ErrorLugarCompra" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="S" name="CheckPoseePropiedad" id="CheckPoseePropiedad">
+                                                                    <label class="text-black">¿Posee propiedad específica?</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus">Presupuesto</label>
+                                                                <input type="number" name="name" id="presupuesto" class="form-control" value="0" min="0" step="10000" style="width:100%;" />
+                                                                <span id="ErrorPresupuesto" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row m-2">
+                                                        <div class="col-md-12">
+                                                            <div class="container-fluid mt-2 bg-white">
+                                                                <div class="row mb-2">
+                                                                    <div class="col-12 text-center">
+                                                                        <h3 class="text-black" id="tituloSeleccionePropiedad"> Seleccione la propiedad </h3>
+                                                                        <h5 class="text-black" id="codigoPropiedadElegido"></h5>
+                                                                        <h5 class="text-danger" id="ErrorCodigoPropiedad"></h5>
+                                                                    </div>
+                                                                </div>
+
+                                                                <table id="tblPropiedades" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Código</th>
+                                                                            <th>Tipo </th>
+                                                                            <th>Dueño</th>
+                                                                            <th>Uso</th>
+                                                                            <th>Ubicación</th>
+                                                                            <th>Medida</th>
+                                                                            <th>Precio Máx.</th>
+                                                                            <th>Precio Mín.</th>
+                                                                            <th>Topografía</th>
+                                                                            <th>Publicación</th>
+                                                                            <th>Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarCaract" class="btn btn-success"><i class="fas fa-check-square"> Guardar   </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarDivision" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR CARACTERISTICAS *@
+<div class="modal fade" id="modal-lg-editar-caracteristicas" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar datos</h4>
+                <button type="button" id="cerrarModalEditarCaracteristicas" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioCaracteristicasEdit" class="m-2 text-center">
+                                                    <div class="row">
+
+                                                        <input type="hidden" id="idCaracteristica" />
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Tipo de propiedad </label>
+                                                                <div>
+                                                                    <input type="hidden" id="idTipoPropiedad" />
+                                                                    <button type="button" class="btn btn-outline-success" id="btnActivarTipoPropiedadEdit" style="cursor:pointer" />
+                                                                </div>
+                                                                <select id="tipoPropiedadEdit" name="tipoPropiedadEdit" class="form-control"></select>
+                                                                <span id="ErrorTipoPropiedadEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Lugar donde desea comprar</label>
+                                                                <input type="text" id="lugarCompraEdit" placeholder="Lugar"
+                                                                       class="form-control">
+                                                                <span id="ErrorLugarCompraEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="S" name="CheckPoseePropiedadEdit" id="CheckPoseePropiedadEdit">
+                                                                    <label class="text-black">¿Posee propiedad específica?</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus">Presupuesto</label>
+                                                                <input type="number" name="name" id="presupuestoEdit" class="form-control" value="0" min="0" step="10000" style="width:100%;" />
+                                                                <span id="ErrorPresupuestoEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row m-2">
+                                                        <div class="col-md-12">
+                                                            <div class="container-fluid mt-2 bg-white">
+                                                                <div class="row mb-2">
+                                                                    <div class="col-12 text-center">
+                                                                        <h3 class="text-black" id="tituloSeleccionePropiedadEdit"> Seleccione la propiedad </h3>
+                                                                        <h5 class="text-black" id="codigoPropiedadElegidoEdit"></h5>
+                                                                        <h5 class="text-danger" id="ErrorCodigoPropiedadEdit"></h5>
+                                                                    </div>
+                                                                </div>
+
+                                                                <table id="tblPropiedadesEdit" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Id</th>
+                                                                            <th>Código</th>
+                                                                            <th>Tipo </th>
+                                                                            <th>Dueño</th>
+                                                                            <th>Uso</th>
+                                                                            <th>Ubicación</th>
+                                                                            <th>Medida</th>
+                                                                            <th>Precio Máx.</th>
+                                                                            <th>Precio Mín.</th>
+                                                                            <th>Topografía</th>
+                                                                            <th>Publicación</th>
+                                                                            <th>Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnEditarCaract" class="btn btn-success"><i class="fas fa-check-square"> Guardar   </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarEditarCaracteristica" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR GESTIONES *@
+<div class="modal fade" id="modal-lg-agregar-gestiones" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar datos</h4>
+                <button type="button" id="cerrarModalAgregarGestion" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioGestiones" class="m-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="descripcionGestion" class="form-control"></textarea>
+                                                                <span id="ErrorDescripcionGestion" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus">Fecha de entrega</label>
+                                                                <input type="text" id="fechaEntrega"
+                                                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                                                <span id="ErrorFechaEntregaGestion" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="E" name="CheckActivo" id="CheckActivo">
+                                                                    <label class="text-black">Entregado</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarGestion" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarGestion" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR GESTIONES *@
+<div class="modal fade" id="modal-lg-editar-gestiones" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar datos</h4>
+                <button type="button" id="cerrarModalEditarGestion" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <input id="idGestion" type="hidden" />
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioGestionesEdit" class="m-2 text-center">
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="descripcionGestionEdit" class="form-control"></textarea>
+                                                                <span id="ErrorDescripcionGestionEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus">Fecha de entrega</label>
+                                                                <input type="text" id="fechaEntregaEdit"
+                                                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                                                <span id="ErrorFechaEntregaGestionEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="E" name="CheckActivoEdit" id="CheckActivoEdit">
+                                                                    <label class="text-black">Entregado</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarGestionEdit" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarDivisionEdit" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR RESULTADOS SUGEF *@
+<div class="modal fade" id="modal-lg-agregar-sugef" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar datos</h4>
+                <button type="button" id="cerrarModalAgregarSugef" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioSugef" class="m-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="observacionResultadoSugef" class="form-control"></textarea>
+                                                                <span id="ErrorObservacionResultadoSugef" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="C" name="CheckEstadoResultado" id="CheckEstadoResultado">
+                                                                    <label class="text-black">Califica</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarResultadoSugef" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarResultadoSugef" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR RESULTADOS SUGEF *@
+<div class="modal fade" id="modal-lg-editar-sugef" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar datos</h4>
+                <button type="button" id="cerrarModalEditarSugef" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioSugefEdit" class="m-2 text-center">
+
+                                                    <input type="hidden" id="idResultadoSugef" />
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="observacionResultadoSugefEdit" class="form-control"></textarea>
+                                                                <span id="ErrorObservacionResultadoSugefEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="C" name="CheckEstadoResultadoEdit" id="CheckEstadoResultadoEdit">
+                                                                    <label class="text-black">Califica</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarResultadoSugefEdit" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarResultadoSugefEdit" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR RESULTADOS SOLICITANTE *@
+<div class="modal fade" id="modal-lg-agregar-solicitante" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar datos</h4>
+                <button type="button" id="cerrarModalAgregarSolicitante" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioSolicitante" class="m-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="observacionResultadoSolicitante" class="form-control"></textarea>
+                                                                <span id="ErrorObservacionResultadoSolicitante" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input" value="P" name="CheckEstadoResultadoSolicitante" id="CheckEstadoResultadoSolicitante">
+                                                                    <label class="text-black">Positivo</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarResultadoSolicitante" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarAgregarResultadoSolicitante" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR RESULTADOS SUGEF *@
+<div class="modal fade" id="modal-lg-editar-solicitante" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Editar datos</h4>
+                <button type="button" id="cerrarModalEditarSolicitante" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+
+                    <div class="container">
+                        <!-- APPLICATION -->
+                        <div id="App">
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <form id="formularioSolicitanteEdit" class="m-2 text-center">
+
+                                                    <input type="hidden" id="idResultadoSolicitante" />
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputStatus"> Descripción </label>
+                                                                <textarea id="observacionResultadoSolicitanteEdit" class="form-control"></textarea>
+                                                                <span id="ErrorObservacionResultadoSolicitanteEdit" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                           value="C" name="CheckEstadoResultadoSolicitanteEdit"
+                                                                           id="CheckEstadoResultadoSolicitanteEdit">
+                                                                    <label class="text-black">Positivo</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-content-center">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" id="SubmitBtnAgregarResultadoSolicitanteEdit" class="btn btn-success"><i class="fas fa-check-square"> Guardar </i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelarResultadoSolicitanteEdit" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA AGREGAR DOCUMENTOS COMPRADOR *@
+<div class="modal fade" id="modal-lg-agregar-documento" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Documentos </h4>
+                <button type="button" id="cerrarModalAgregarDocumento" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="S"
+                                           name="checkActivoDocumento"
+                                           id="checkActivoDocumento">
+                                    <label class="form-check-label">Recepción</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de documento</label>
+                                <select id="idTipoDocumento"
+                                        name="idTipoDocumento" class="form-control"></select>
+                                <span id="ErrorTipoDocumento" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Fecha de vencimiento</label>
+                                <input type="text" id="fechaVencimiento"
+                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                <span id="ErrorFechaVencimientoDocumento" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Notas</label>
+                                <textarea type="text" id="notasComprador"
+                                          placeholder="Notas" class="form-control"></textarea>
+                                <span id="ErrorNotasSituacionLegal" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarAgregarDocumento">Cancelar</button>
+                    <button id="btnEnviarDatosDocumentos" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@* MODAL PARA EDITAR DOCUMENTOS COMPRADOR *@
+<div class="modal fade" id="modal-lg-editar-documento" data-backdrop="static" data-keyboard="false" href="#">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fas fa-spinner fa-pulse nav-icon mr-1"></i> Agregar Documento </h4>
+                <button type="button" id="cerrarModalEditarDocumento" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="btn btn-danger">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* Contenido del modal *@
+                <section class="content container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="S"
+                                           name="checkActivoDocumentoEdit"
+                                           id="checkActivoDocumentoEdit">
+                                    <label class="form-check-label">Recepción</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idDocumentoComprador" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Tipo de documento</label>
+                                <div>
+                                    <input type="hidden" id="idTipoDocumento" />
+                                    <button class="btn btn-outline-success" id="btnActivarTipoDocumentoEdit" style="cursor:pointer" />
+                                </div>
+                                <select id="idTipoDocumentoEdit"
+                                        name="idTipoDocumentoEdit" class="form-control"></select>
+                                <span id="ErrorTipoDocumentoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputStatus">Fecha de vencimiento</label>
+                                <input type="text" id="fechaVencimientoEdit"
+                                       placeholder="Fecha Vencimiento" class="form-control" />
+                                <span id="ErrorFechaVencimientoDocumentoEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="inputStatus">Notas</label>
+                                <textarea type="text" id="notasCompradorEdit"
+                                          placeholder="Notas" class="form-control"></textarea>
+                                <span id="ErrorNotasDocumentoCompradorEdit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-warning" data-dismiss="modal" id="btnCancelarEditarDocumento">Cancelar</button>
+                    <button id="btnEnviarDatosDocumentosEdit" type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts {
+
+    <script src="~/js/logicaSitio/Clientes/DatosComprador.js"></script>
+    <script src="~/js/logicaSitio/Clientes/CustomSwitchComprador.js"></script>
+    <script src="~/plugins/jquery-ui/datepicker_language.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

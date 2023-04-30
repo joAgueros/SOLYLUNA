@@ -1,0 +1,382 @@
+﻿@model Modelos.ViewModels.Propiedades.EditarPropiedadViewModel
+
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/favicons/logoico-02.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<div class="col-md-12 mt-4">
+    <!-- general form elements disabled -->
+    <div class="card card-warning">
+        <div class="card-header">
+            <h4> <i class="fa fa-home nav-icon"></i> Editar Propiedad</h4>
+            <input type="hidden" asp-for="IdPropiedad" id="idPropiedad" />
+            <a href="/Admin/Propiedad/VerInformacionPropiedad/@Model.IdPropiedad"
+               class="btn btn-warning" data-dismiss="modal"><i class="fas fa-backward"> </i> Volver </a>
+        </div>
+        <p></p>
+        <!-- /.card-header -->
+        <div class="card-body" style="border-top:25px solid;border-right-color:red;">
+            <section class="content container">
+                <div class="row" id="desplegable1">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Uso de la propiedad</h3>
+                            </div>
+                            <div class="card-body1 m-3">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Tipo de propiedad</label>
+                                        <select asp-for="TipoPropiedadId" asp-items="Model.TipoPropiedad" id="idTipoPropiedad"
+                                                name="tipoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="TipoPropiedadId" id="ErrorTipoPropiedades" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Uso de la propiedad</label>
+                                        <select asp-for="UsoPropiedadId" asp-items="Model.UsoPropiedad" id="idTipoUsoPropiedad"
+                                                name="tipoUsoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="UsoPropiedadId" id="ErrorTipoUsoPropiedades" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="row" id="desplegable2">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos de acceso a la propiedad</h3>
+                            </div>
+                            <div class="card-body2 m-3">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Ingreso</label>
+                                        <select asp-for="IngresoPropiedadId" asp-items="Model.IngresoPropiedad" id="idIngresoPropiedad"
+                                                name="tipoIngresoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="IngresoPropiedadId" id="ErrorTipoIngresoPropiedades" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Estado</label>
+                                        <select asp-for="EstadoAccesoPropiedadId" asp-items="Model.EstadoAccesoPropiedad" id="idEstadoAccesoPropiedad"
+                                                name="tipoEstadoAccesoPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="EstadoAccesoPropiedadId" id="ErrorEstadoAccesoPropiedades" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="row" id="desplegable3">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos de ubicación</h3>
+                            </div>
+                            <div class="card-body3 m-3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label> Provincias </label>
+                                            <select asp-for="ProvinciaId" asp-items="Model.Provincias" id="idProvincia" name="provincias" class="form-control"></select>
+                                            <span asp-validation-for="ProvinciaId" id="ErrorProvincias" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label> Cantones </label>
+                                            <select asp-for="CantonId" asp-items="Model.Cantones" id="idCanton" name="cantones" class="form-control"></select>
+                                            <span asp-validation-for="CantonId" id="ErrorCantones" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Distritos </label>
+                                            <select asp-for="DistritoId" asp-items="Model.Distritos" id="idDistrito" name="distritos" class="form-control"></select>
+                                            <span asp-validation-for="DistritoId" id="ErrorDistritos" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label> Dirección exacta </label>
+                                            <textarea asp-for="DireccionExacta" id="direccion" class="form-control"></textarea>
+                                            <span asp-validation-for="DireccionExacta" id="ErrorDireccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label> Barrio ó poblado </label>
+                                            <textarea asp-for="BarrioPoblado" id="barrioPoblado" class="form-control"></textarea>
+                                            <span asp-validation-for="BarrioPoblado" id="ErrorBarrioPoblado" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="row" id="desplegable4">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Medidas de la propiedad</h3>
+                            </div>
+                            <div class="card-body4 m-3">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Medidas</label>
+                                        <select asp-for="MedidasPropiedadId" asp-items="Model.MedidasPropiedad" id="idMedidasPropiedad"
+                                                name="tipoEstadoMedidasPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="MedidasPropiedadId" id="ErrorMedidaPropiedad" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Total</label>
+                                        <input asp-for="TotalMedida" type="text" name="valorMedida" id="valorMedida" class="form-control" />
+                                        <span asp-validation-for="TotalMedida" id="ErrorValorMedidaPropiedad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="row" id="desplegable5">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Estado del pozo</h3>
+                            </div>
+                            <div class="card-body5 m-3">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" asp-for="DisponePozo" class="form-check-input" id="checkPoseePozo">
+                                        <label class="form-check-label text-bold" for="exampleCheck1">¿Posee pozo?</label>
+                                    </div>
+                                </div>
+                                <div id="ocultarOpcionesPozo">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputStatus">Tipo de pozo</label>
+                                            <select asp-for="TipoPozosPropiedadId" asp-items="Model.TipoPozoPropiedad" id="idTipoPozoPropiedad" name="tipoPozosPropiedad" class="form-control"></select>
+                                            <span asp-validation-for="TipoPozosPropiedadId" id="ErrorTipoPozosPropiedad" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputStatus">Estado del pozo</label>
+                                            <select asp-for="EstatusPozoPropiedadId" asp-items="Model.EstatusPozoPropiedad" id="idEstatusPozoPropiedad" name="tipoEstatusPozosPropiedad" class="form-control"></select>
+                                            <span asp-validation-for="EstatusPozoPropiedadId" id="ErrorEstatusPozosPropiedad" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="row" id="desplegable6">
+                    <div class="col-md-12">
+                        <div class="card card-primary collapsed-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos adicionales </h3>
+                            </div>
+                            <div class="card-body6 m-3">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <div class="form-check">
+                                            <input asp-for="DisponeAgua" type="checkbox" class="form-check-input" id="checkPoseeAgua">
+                                            <label class="form-check-label text-bold" for="exampleCheck1">¿Dispone de agua?</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Uso de suelo</label>
+                                        <select asp-for="UsoSueloId" asp-items="Model.UsoSuelo" id="idUsoSueloPropiedad"
+                                                name="tipoEstadoMedidasPropiedades" class="form-control"></select>
+                                        <span asp-validation-for="UsoSueloId" id="ErrorUsoSueloPropiedad" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label for="inputStatus">Tipo de Moneda</label>
+                                            <select asp-for="Moneda" id="idTipoMoneda"
+                                                    name="idTipoMoneda" class="form-control">
+                                                @if (Model.Moneda != "Colones")
+                                                {
+                                                    <option value="Colones"><p><strong>₡</strong> Colones</p></option>
+                                                    <option value="Dolares" selected><p><strong>$</strong> Dólares</p></option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="Colones" selected><p><strong>₡</strong> Colones</p></option>
+                                                    <option value="Dolares"><p><strong>$</strong> Dólares</p></option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputStatus">Precio máximo @Model.PrecioMaximo</label>
+                                            <input asp-for="PrecioMaximo" type="text" name="name" id="valorPrecioMaximo" class="form-control" onkeyup="format(this)" onchange="format(this)" />
+                                            <span asp-validation-for="PrecioMaximo" id="ErrorPrecioMaximo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputStatus">Precio mínimo</label>
+                                            <input asp-for="PrecioMinimo" type="text" name="name" id="valorPrecioMinimo" class="form-control" onkeyup="format(this)" onchange="format(this)" />
+                                            <span asp-validation-for="PrecioMinimo" id="ErrorPrecioMinimo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Topografía</label>
+                                        <select asp-for="TopografiaId" asp-items="Model.TopografiaPropiedad" id="idTipoTopografiaPropiedad" name="tipoTopografiaPropiedad" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Nivel de calle</label>
+                                        <select asp-for="NivelCalleId" asp-items="Model.NivelCallePropiedad" id="idNivelCallePropiedad" name="nivelCallePropiedad" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Número de finca</label>
+                                        <input asp-for="NumeroFinca" type="text" name="name" id="valorNumeroFinca" class="form-control" />
+                                        <span asp-validation-for="NumeroFinca" id="ErrorNumeroFinca" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Número de plano</label>
+                                        <input asp-for="NumeroPlano" type="text" name="name" id="valorNumeroPlano" class="form-control" />
+                                        <span asp-validation-for="NumeroPlano" id="ErrorNumeroPlano" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="inputStatus">Intención</label>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-radio">
+                                                <input asp-for="Intencion" class="custom-control-input" type="radio" id="radioVenta" value="Venta" name="radioIntencion">
+                                                <label for="radioVenta" class="custom-control-label">Venta</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input asp-for="Intencion" class="custom-control-input" type="radio" id="radioRenta" value="Renta" name="radioIntencion">
+                                                <label for="radioRenta" class="custom-control-label">Renta</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input asp-for="Intencion" class="custom-control-input" type="radio" id="radioVentaRenta" value="Venta y Renta" name="radioIntencion">
+                                                <label for="radioVentaRenta" class="custom-control-label">Venta y Renta</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="inputStatus">Cuota de mantenimiento</label>
+                                        <input asp-for="CuotaMantenimiento" type="text" name="name" id="valorCuotaMantenimiento" class="form-control" onkeyup="format(this)" onchange="format(this)" />
+                                        <span asp-validation-for="CuotaMantenimiento" id="ErrorCuotaMantenimiento" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="inputStatus">Tipo de vistada de la propiedad</label>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" type="radio" id="radioVistaMar" value="Vista al Mar" name="radioVistada" checked="">
+                                                <label for="radioVistaMar" class="custom-control-label">Vista al Mar</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" type="radio" id="radioVistaMontania" value="Vista a la montaña" name="radioVistada">
+                                                <label for="radioVistaMontania" class="custom-control-label">Vista a la montaña</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" type="radio" id="radioVistaValle" value="Vista al Valle" name="radioVistada">
+                                                <label for="radioVistaValle" class="custom-control-label">Vista al Valle</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" type="radio" id="radioSinVista" value="Sin vista" name="radioVistada">
+                                                <label for="radioSinVista" class="custom-control-label">Sin vistada</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputStatus">Link Video Propiedad</label>
+                                        <input asp-for="LinkVideo" type="text" name="linkVideo" id="linkVideo" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputStatus">Descripción general de la propiedad</label>
+                                        <textarea asp-for="DescripcionPropiedad" id="descripcionPropiedad" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="card">
+                            <div class="align-items-center m-2">
+                                <a href="/Admin/Propiedad/VerInformacionPropiedad/@Model.IdPropiedad"
+                                   class="btn btn-warning" data-dismiss="modal"><i class="fas fa-backward"> </i> Volver </a>
+                                <a type="button" class="btn btn-primary" href="/Admin/Propiedad/EditarPropiedad/@Model.IdPropiedad"><i class="fas fa-upload"></i>  Reestablecer</a>
+                                <button id="btnEditarDatosInicialesPropiedad" class="btn btn-success"><i class="fas fa-check-square"> Guardar</i> </button>
+
+                                <div class="alert alert-danger alert-dismissible mt-2" id="muestraError">
+
+                                    <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error </h5>
+                                    <p id="mensajeError"> </p>
+                                </div>
+
+                                <div class="alert alert-warning alert-dismissible mt-2" id="muestraAdvertencia">
+
+                                    <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
+                                    <p id="mensajeAdvertencia"> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function format(input) {
+            var num = input.value.replace(/\./g, '');
+            if (!isNaN(num)) {
+                num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+                num = num.split('').reverse().join('').replace(/^[\.]/, '');
+                input.value = num;
+            }
+            else {
+                input.value = input.value.replace(/[^\d\.,]*/g, '');
+            }
+        }
+    </script>
+    <script src="~/js/logicaSitio/Propiedades/EditarPropiedad.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

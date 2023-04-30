@@ -1,0 +1,161 @@
+﻿@model List<Modelos.ViewModels.Propiedades.VerPropiedadViewModel>
+
+<style>
+
+    .boton {
+        width: 50px;
+        height: 50px;
+        background-color: #03800b;
+        margin: 5px;
+        padding: 10px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        line-height: 32px;
+        float: left;
+    }
+
+        .boton:hover {
+            opacity: 0.50;
+            -moz-opacity: .50;
+            filter: alpha (opacity=50);
+        }
+
+        .boton a {
+            color: #fff;
+            padding: 5px 5px 5px 0;
+        }
+</style>
+
+
+<section class="latest_properties" style="margin:-50px 25px 0px 25px; padding:118px 0px 0px">
+    <div class="container_box">
+        <div class="block-title text-center">
+            <h4>Lista Propiedades</h4>
+
+            @if (Model != null)
+            {
+                if (Model.Count != 0)
+                {
+                    if (Model[0].SinResultados && !Model[0].VanTodas)
+                    {
+                        <h2>PROPIEDADES</h2>
+                        <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                            Volver a inicio
+                        </a>
+                    }
+                    else
+                    {
+                        @if (Model[0].VanTodas)
+                        {
+                            <h2>TODAS LAS PROPIEDADES</h2>
+                            <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                                Volver a inicio
+                            </a>
+                        }
+                        else
+                        {
+                            <h2>PROPIEDADES</h2>
+                            <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                                Volver a inicio
+                            </a>
+                        }
+                    }
+
+                }
+                else if (Model.Count == 0)
+                {
+                    <h2>PROPIEDADES</h2>
+                    <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                        Volver a inicio
+                    </a>
+                }
+            }
+            else
+            {
+                <h2>PROPIEDADES</h2>
+                <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                    Volver a inicio
+                </a>
+            }
+
+        </div>
+
+        @if (Model[0].EnBlancoBusqueda)
+        {
+            <h1>Debe ingresar un lugar para la búsqueda!</h1>
+        }
+        else
+        {
+
+            @if (Model[0].SinResultados)
+            {
+                <h1>No se han encontrados propiedades con los filtros ingresados, inténta con otros datos!</h1>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="container_box">
+                            <div class="row"> 
+                                @* Recorre cada propiedad *@
+                                @foreach (var propiedad in Model)
+                                {
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="latest_properties_single">
+                                            <div class="latest_properties_img_carousel owl-theme owl-carousel">
+
+                                                @* Recorre el listado de imagenes de cada propiedad *@
+                                                @for (int j = 0; j < propiedad.ImagenesPropiedad.Count; j++)
+                                                {
+                                                <div class="latest_properties_img">
+
+                                                    <img width="370" height="282" src="@propiedad.ImagenesPropiedad[j].Ruta" alt="@propiedad.ImagenesPropiedad[j].Titulo">
+
+                                                </div>
+                                                }
+
+                                            </div>
+
+                                            @* Pinta la parte de abajo de cada propiedad *@
+                                            <div class="latest_properties_content">
+                                                <div class="latest_properties_top_content newText_Properties">
+                                                    <h4>
+                                                        <a href="/Cliente/Home/VerInformacionPropiedad/@propiedad.IdPropiedad">@propiedad.UsoPropiedad </a>
+
+                                                    </h4>
+                                                    <p> @propiedad.Distrito, @propiedad.Provincia</p>
+
+                                                    @{var precio = string.Format("{0,12:0,000.00}", propiedad.PrecioMaximo);
+                                                        string medidaFormat = Convert.ToString(propiedad.TotalMedida).Replace(",00", "");
+                                                    }
+                                                    @if (propiedad.Moneda != "Colones")
+                                                    {
+                                                        <h3>$ @precio </h3>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3>₡ @precio </h3>
+                                                    }
+                                                    <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@propiedad.IdPropiedad"><i class="fas fa-images"></i> </a>
+                                                    <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@propiedad.IdPropiedad">Ver detalles</a>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+            }
+        }
+    </div>
+</section>

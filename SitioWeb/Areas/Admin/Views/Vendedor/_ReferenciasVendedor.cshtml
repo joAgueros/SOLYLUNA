@@ -1,0 +1,28 @@
+﻿@model List<Modelos.ViewModels.Clientes.ReferenciasViewModel>
+
+
+<div class="row col-12">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var customSwitch = "customSwitch"+i;
+        var idRefe = "refe"+i;
+        string Estado = Convert.ToString(Model[i].Estado);
+        bool estaRefe = false;
+        
+        if (Estado == "A")
+        {
+            estaRefe = true;
+        }
+        <div class="callout callout-danger col-lg-2">
+            <h5>@Model[i].Descripcion</h5>
+            <div class="form-group">
+                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input type="checkbox" class="custom-control-input" id="@customSwitch" asp-for="@estaRefe">
+                    <input type="checkbox" value="@Model[i].IdReferencias" id="@idRefe" hidden>
+                    <label class="custom-control-label" for="@customSwitch"> </label>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

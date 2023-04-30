@@ -1,0 +1,187 @@
+﻿@model Modelos.ViewModels.Clientes.RegistrarContactoViewModel
+
+
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+
+<section class="page-header" style="background-image: url(/ContentCliente/assets/images/main-slider/banner-slider-9.jpg);
+        padding: 90px 0px 70px
+">
+    <div class="Contact">
+        <div class="page-header-inner">
+            <h2>Contactenos</h2>
+           
+        </div>
+    </div>
+</section>
+<!--Page Header End-->
+<section class="locations"style=" padding: 15px 0px 0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Locations Single-->
+                <div class="locations_three_single">
+                    <div class="locations_three_title">
+                        <h3>Dirección</h3>
+                        <p>Guanacaste</p>
+                    </div>
+                    <div class="locations_three_contact">
+                        <p>Barrio los Angeles, de la plaza los Jocotes 25m Este, Nicoya, Guanacaste, Costa Rica</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Locations Single-->
+                <div class="locations_three_single">
+                    <div class="locations_three_title">
+                        <h3>Teléfono Oficina</h3>
+
+                    </div>
+                    <div class="locations_three_contact">
+                        <a href="tel:(+506)2686-6732" class="number_box">(+506)2686-6732</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Locations Single-->
+                <div class="locations_three_single">
+                    <div class="locations_three_title">
+                        <h3>WhatsApp</h3>
+                        <p>Consultas</p>
+                    </div>
+                    <div class="locations_three_contact">
+                        <a href="https://api.whatsapp.com/send?phone=50687289082" class="number_box">+506 8728 9082</a> <br />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <!--Locations Single-->
+                <div class="locations_three_single">
+                    <div class="locations_three_title">
+                        <h3>Correo</h3>
+
+                    </div>
+                    <div class="locations_three_contact">
+                        <a href="mailto:info@realestatesolyluna.com" class="mail_box">info@realestatesolyluna.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Locations End-->
+<section class="contact" style=" padding: 5px 0px 20px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4">
+                <div class="block-title text-left">
+
+                    <h4>Contactanos</h4>
+                    <h2>Estaremos encantados de antenderle</h2>
+                </div>
+                <div class="contact_text">
+                    <p>
+                        Estamos 100% disponibles para atenderle, no dude en contactarnos!
+                    </p>
+
+                </div>
+
+                <div class="contact__social">
+                    @*<a href="#"><i class="fab fa-twitter"></i></a>*@
+                    <a href="https://www.facebook.com/Sol-y-Luna-Real-Estate-CR-1820981024597878"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.linkedin.com/company/real-estate-sol-y-luna/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=50687289082"><i class="fab fa-whatsapp"></i></a>
+
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8">
+                <form id="RegistraContactoForm" class="contact__form">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="comment_input_box">
+
+                                <input asp-for="Nombre" id="nomPer" type="text" placeholder="Nombre" name="name">
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="comment_input_box">
+                                <input asp-for="Apellidos" id="apellidos" type="text" placeholder="Apellidos" name="apellido">
+                                <span asp-validation-for="Apellidos" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xl-6">
+                            <div class="comment_input_box">
+
+                                <input asp-for="Correo" id="correo" type="email" placeholder="Correo" name="email" />
+                                <span asp-validation-for="Correo" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="comment_input_box">
+                                <input asp-for="Tel" id="tel" type="text" placeholder="Teléfono" name="phone" />
+                                <span asp-validation-for="Tel" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row">
+
+                            <div class="col-xl-6">
+                                <div class="comment_input_box">
+                                    <input asp-for="TipoContacto" id="tipoContacto" type="text" placeholder="Apellidos" value="Informacion" name="apellidos">
+                                    <span asp-validation-for="Apellidos" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>*@
+
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="comment_input_box">
+                                <textarea asp-for="Descripcion" id="descripcion" type="text" name="mensaje" placeholder="Escribe tu mensaje"></textarea>
+                            </div>
+                            <input type="submit" id="btnSubmit" class="thm-btn comment-form__btn" value="Enviar">
+                            <div class="alert alert-default-success alert-success mt-2" id="muestraAdvertencia">
+
+                                <h5><i class="icon fas fa-info"></i> Gracias por ponerte en contacto con nosotros!</h5>
+                                <p id="mensajeAdvertencia"> </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Contact End-->
+<!--Locations Start-->
+<!--Google Map-->
+<section class="google_map">
+    @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4562.753041141002!2d-118.80123790098536!3d34.152323469614075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e82469c2162619%3A0xba03efb7998eef6d!2sCostco+Wholesale!5e0!3m2!1sbn!2sbd!4v1562518641290!5m2!1sbn!2sbd"
+        class="google-map__contact" allowfullscreen></iframe>*@
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1963.6906484527622!2d-85.45011079225979!3d10.149628746125925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x890c3cc03247b63b!2sSol%20y%20Luna%20-%20Real%20State!5e0!3m2!1ses!2scr!4v1611678736731!5m2!1ses!2scr"
+            width="100%" height="500" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+</section>
+
+@section scripts {
+
+    <environment include="Development">
+        <script src="~/js/logicaSitio/Clientes/Contacto.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/logicaSitio/Clientes/Contacto.js"></script>
+    </environment>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

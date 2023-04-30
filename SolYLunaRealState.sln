@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelos", "Modelos\Modelos.csproj", "{EF9366A0-D8EC-4A7A-AA0C-206CC9A52B44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitioWeb", "SitioWeb\SitioWeb.csproj", "{D3656618-C4D0-461B-B76E-E2C4C7F0551C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccesoDatos", "AccesoDatos\AccesoDatos.csproj", "{BCDCBC3D-D377-4031-A1E4-14FFFE8CD28B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF9366A0-D8EC-4A7A-AA0C-206CC9A52B44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF9366A0-D8EC-4A7A-AA0C-206CC9A52B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF9366A0-D8EC-4A7A-AA0C-206CC9A52B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF9366A0-D8EC-4A7A-AA0C-206CC9A52B44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3656618-C4D0-461B-B76E-E2C4C7F0551C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3656618-C4D0-461B-B76E-E2C4C7F0551C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3656618-C4D0-461B-B76E-E2C4C7F0551C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3656618-C4D0-461B-B76E-E2C4C7F0551C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDCBC3D-D377-4031-A1E4-14FFFE8CD28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDCBC3D-D377-4031-A1E4-14FFFE8CD28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDCBC3D-D377-4031-A1E4-14FFFE8CD28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDCBC3D-D377-4031-A1E4-14FFFE8CD28B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F81BC43C-1BCD-4375-8430-5FE10A899195}
+	EndGlobalSection
+EndGlobal

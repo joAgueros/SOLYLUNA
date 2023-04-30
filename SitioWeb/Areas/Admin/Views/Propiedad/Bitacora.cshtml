@@ -1,0 +1,52 @@
+﻿
+
+<div class="container mt-5">
+    <h1>Bitácora</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="inputStatus">Desde</label>
+                <input type="text" id="fechaInicio" class="form-control" />
+                <span id="ErrorFechaInicio" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="inputStatus">Hasta</label>
+                <input type="text" id="fechaFin" class="form-control" />
+                <span id="ErrorFechaFinal" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="form-group">
+                <button id="btnEnviarFechas" class="btn btn-secondary"> Aceptar </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<table id="tblBitacoraPropiedades" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Descripción</th>
+            <th>Tipo Operación</th>
+            <th>Fecha</th>
+            <th>Registro afectado</th>
+            <th>Id Registro Afectado</th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts {
+
+
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/plugins/jquery-ui/datepicker_language.js"></script>
+    <script src="~/js/logicaSitio/Propiedades/bitacora.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

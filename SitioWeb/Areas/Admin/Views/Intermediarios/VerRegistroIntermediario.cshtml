@@ -1,0 +1,125 @@
+﻿@model Modelos.ViewModels.Clientes.IntermediarioPropiedadViewModel
+
+<div class="preloader">
+    <img src="~/ContentCliente/assets/images/loader.png" class="preloader__image" alt="">
+</div><!-- /.preloader -->
+
+<section class="content mt-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="hidden" asp-for="Intermediario.IdIntermediario" id="idClienteVendedor" />
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="~/img/usuario.png" alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@Html.DisplayFor(model => model.Intermediario.NombreCompleto)</h3>
+
+                        <a href="/Admin/Intermediarios/Editar/?id=@Html.DisplayFor(model => model.Intermediario.IdIntermediario)" class="btn btn-primary btn-block"><b><i class="fas fa-pen-alt mr-1"></i>Editar</b></a>
+                        <hr />
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Intermediario</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <strong><i class="fas fa-envelope-open mr-1"></i> Correo electrónico </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.CorreoElectronico)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.Provincia),
+                                    @Html.DisplayFor(model => model.Intermediario.Canton),
+                                    @Html.DisplayFor(model => model.Intermediario.Distrito)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-address-book mr-1"></i> Dirección exacta </strong>
+
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.DireccionExacta)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-phone-alt mr-1"></i> Teléfonos </strong>
+                                <hr />
+                                <strong> Celular </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.TelefonoMovil)
+                                </p>
+                                <strong> Casa </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.TelefonoCasa)
+                                </p>
+                                <strong> Oficina </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.TelefonoOficina)
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="far fa-file-alt mr-1"></i> Identificación</strong>
+
+                                <hr />
+                                <strong> Identificación </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.Identificacion)
+                                </p>
+                                <strong> Tipo Identificación </strong>
+                                <p class="text-muted">
+                                    @Html.DisplayFor(model => model.Intermediario.TipoIdentificacion)
+                                </p>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <!-- general form elements disabled -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h4> <i class="fa fa-home nav-icon"></i> Propiedades</h4>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @*/*Vista parcial para mostrar las propiedades del cliente*/*@
+                        <div id="ListadoPropiedadesCliente">
+                            <partial name="~/Areas/Admin/Views/Intermediarios/_ListadoPropiedadesIntermediario.cshtml" model="@Model.Propiedades" />
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+
+
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts {
+ 
+        <script src="~/js/logicaSitio/Clientes/RegistrarPropiedadCliente.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

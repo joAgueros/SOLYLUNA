@@ -1,0 +1,151 @@
+﻿@model Modelos.ViewModels.Usuario.RegistrarUsuarioSistemaViewModel
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-2">
+        <div class="col-12">
+            <h2 class="text-gray-dark text-center"> Listado de Usuarios </h2>
+        </div>
+        <hr />
+        <div class="col-12 text-center">
+            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#modal-lg-registrar-administrador">
+                <i class="fas fa-plus"> Nuevo Administrador</i>
+            </button>
+        </div>
+    </div>
+
+    <table id="tblAdministradores" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Correo</th>
+                <th>Nombre Completo</th>
+                <th>Identificación</th>
+                <th>Confirmación</th>
+                <th>Bloqueado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+@* Modal para el registro de un nuevo administrador *@
+<div class="modal fade" id="modal-lg-registrar-administrador" data-backdrop="static" data-keyboard="false">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> <i class="fa fa-users nav-icon"></i> Nuevo Administrador</h4>
+                <button type="button" id="btnCerrarModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Administrador </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <form id="RegistrarAdministradorForm">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Identificación</label>
+                                        <input asp-for="Identificacion" id="identificacion" class="form-control input-sm" />
+                                        <span asp-validation-for="Identificacion" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Correo electrónico</label>
+                                        <input asp-for="CorreoElectronico" id="correo" class="form-control input-sm" />
+                                        <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input asp-for="Nombre" id="nombre" class="form-control input-sm" />
+                                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Primer Apellido </label>
+                                        <input asp-for="Apellido1" id="apellido1" class="form-control input-sm" />
+                                        <span asp-validation-for="Apellido1" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Segundo Apellido</label>
+                                        <input asp-for="Apellido2" id="apellido2" class="form-control input-sm" />
+                                        <span asp-validation-for="Apellido2" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="NuevaContrasenia">Nueva Contraseña</label>
+                                        <input asp-for="NuevaContrasenia" id="contrasenia" type="password" class="form-control" />
+                                        <span asp-validation-for="NuevaContrasenia" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="ConfirmacionContrasenia">Confirmar Contraseña</label>
+                                        <input asp-for="ConfirmacionContrasenia" id="confirmarContrasenia" type="password" class="form-control" />
+                                        <span asp-validation-for="ConfirmacionContrasenia" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="card">
+                                        <div class="align-items-center m-2">
+                                            <button type="button" class="btn btn-warning" id="btnCancelarRegistroAdministrador" data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" id="SubmitBtn" class="btn btn-success">Guardar</button>
+                                            <div class="alert alert-danger alert-dismissible mt-2" id="muestraError">
+
+                                                <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error </h5>
+                                                <p id="mensajeError"> </p>
+                                            </div>
+                                            <div class="alert alert-warning alert-dismissible mt-2" id="muestraAdvertencia">
+
+                                                <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
+                                                <p id="mensajeAdvertencia"> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts {
+    
+        <script src="~/js/logicaSitio/Usuarios/administradores.js"></script>
+  
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

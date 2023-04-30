@@ -1,0 +1,112 @@
+﻿@model Modelos.ViewModels.Alquileres.AlquileresViewModel
+
+<section class="listing_one_wrap">
+    <section class="page-header" style="        background-image: url(/ContentCliente/assets/images/main-slider/banner-slide-6.jpg);
+        padding: 50px 0px 40px
+">
+        <div class="container">
+            <div class="page-header-inner">
+                <h2>PROPIEDADES EN ALQUILER</h2>
+                <ul class="thm-breadcrumb list-unstyled">
+                    <li style="color:white">Propiedades / Alquiler</li>
+                </ul>
+                <a asp-area="Cliente" asp-controller="Home" asp-action="Index" class="thm-btn banner_one_search_btn mt-4">
+                    Volver a inicio
+                </a>
+            </div>
+        </div>
+    </section>
+    <!--Nuevas Propiedades-->
+    <section class="latest_properties" style="margin:-90px 25px 0px 25px; padding:118px 0px 0px">
+        <div class="container_box">
+            <div class="row">
+                            @* Recorre cada propiedad *@
+                            @for (int i = 0; i < Model.Propiedades.Count; i++)
+                            {
+
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="latest_properties_single">
+                                    <div class="latest_properties_img_carousel owl-theme owl-carousel">
+                                        @* Recorre el listado de imagenes de cada propiedad *@
+                                        @for (int j = 0; j < Model.Propiedades[i].ImagenesPropiedad.Count; j++)
+                                        {
+                                            <div>
+                                                <img width="370" height="282" src="@Model.Propiedades[i].ImagenesPropiedad[j].Ruta" alt="@Model.Propiedades[i].ImagenesPropiedad[j].Titulo">
+
+                                            </div>
+                                        }
+                                    </div>
+                                    @* Pinta la parte de abajo de cada propiedad *@
+                                    <div class="latest_properties_content">
+                                        <div class="latest_properties_top_content newText_Properties">
+                                            <h4>
+                                                <a href="/Cliente/Home/VerInformacionPropiedad/@Model.Propiedades[i].IdPropiedad">@Model.Propiedades[i].UsoPropiedad</a>
+                                            </h4>
+                                            <p>@Model.Propiedades[i].Distrito, @Model.Propiedades[i].Provincia  </p>
+                                            @{var precio = string.Format("{0,12:0,000.00}", Model.Propiedades[i].PrecioMaximo);
+                                            }
+                                            @if (Model.Propiedades[i].Moneda != "Colones")
+                                            {
+                                                <h3>$ @precio</h3>
+                                            }
+                                            else
+                                            {
+                                                <h3>₡ @precio</h3>
+                                            }
+
+                                            <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.Propiedades[i].IdPropiedad"><i class="fas fa-images"></i></a>
+                                            <a class="sale_btn" href="/Cliente/Home/VerInformacionPropiedad/@Model.Propiedades[i].IdPropiedad">Ver detalles</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                       
+                   
+            </div>
+            
+        </div>
+    </section>
+
+    <section style="padding: 0px 0px 20px">
+        <div class="container">
+            <div class="row">
+                <div class="container-fluid mt-2 bg-white">
+                    <div class="row mb-2">
+                        <div class="col-12 text-center">
+                            <h2 class="text-black">Filtrado Avanzado Propiedades </h2>
+                        </div>
+                    </div>
+
+                    <table id="tblPropiedadesHome" class="table table-hover table-bordered table-responsive table-striped mt-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Tipo </th>
+                                <th>Uso</th>
+                                <th>Ubicación</th>
+                                <th>Medida</th>
+                                <th>₡/$</th>
+                                <th>Precio</th>
+                                <th>Intención</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+@section scripts {
+
+    <script src="~/js/logicaSitio/Inicio/index.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

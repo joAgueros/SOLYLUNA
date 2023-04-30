@@ -1,0 +1,87 @@
+﻿using AccesoDatos.BlogCore.Models;
+using Modelos.Entidades;
+using Modelos.ViewModels.Propiedades;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Data.Repository
+{
+    public interface IPropiedadRepository : IRepository<TbPropiedade>
+    {
+        public Task<Tuple<int, int, int>> ObtenerIDsUbicacion(Ubicacion ubicacion);
+        public List<Topografia> ObtenerTopografia();
+        public List<TiposAcceso> ObtenerTiposAcceso();
+        public List<EstadosCalificacion> EstadosDeCalificacion();
+        public Task<VerPropiedadViewModel> ObtenerDatosPropiedad(int idPropiedad);
+        public Task<List<VerPropiedadViewModel>> ObtenerDatosPropiedadesRecientes();
+        public Task<EditarPropiedadViewModel> ObtenerDatosEditarPropiedad(int idPropiedad);
+        public Task<List<TbCaracteristica>> ObtenerTodasLasCaracteristicas();
+        public Task<List<TbTipoMedida>> ObtenerTodosLosTiposMedidas();
+        public Task<List<TbTiposerMunicipal>> ObtenerTodosLosServiciosMunicipales();
+        public Task<List<TbTipoSituacion>> ObtenerTodosLosTiposSituacionPropiedad();
+        public Task<List<TbDocumento>> ObtenerTodosLosTiposDocumentos();
+        public Task<List<TbTipoCuota>> ObtenerTodosLosTiposCuotas();
+        public Task<List<TbAcceso>> ObtenerTodosLosTiposAccesoPropiedad();
+        public Task<List<TbUsoSuelo>> ObtenerTodosLosTiposUsoSuelo();
+        public Task<List<TbPersVisual>> ObtenerTodasLasVistas();
+        public Task<List<TbComisione>> ObtenerTodosLosTiposComision();
+        public Task<List<TbTipoPropiedade>> ObtenerTodosLosTiposPropiedades();
+        public Task<List<TbUsoPropiedad>> ObtenerTodosLosUsosPropiedad();
+        public Task<List<TbTipoIntermediario>> ObtenerTodosLosTiposIntermediarios();
+        public List<EstadosPozo> ObtenerEstadosPozo();
+        public List<TiposPozo> ObtenerTipoPozo();
+        public List<NivelCalle> ObtenerNivelesCalle();
+        public Task<List<TbServiciosPub>> ObtenerTodosLosServiciosPublicos();
+        public Task<string> AgregarDatosInicialesPropiedad(RegistrarPropiedadViewModel propiedad, string usuario);
+        public List<MostrarPropiedadTabla> ObtenerListaPropiedades(string estatus);
+        public Task<Response> AgregarNuevaConstruccion(string descripcionConstruccion, int idPropiedad, string usuario);
+        public Task<Response> ObtenerConstruccion(int idPropiedad);
+        public List<PropiedadCaracteristica> ObtenerCaracteristicasPropiedadAdquiridas(int idPropiedad);
+        public Task<bool> AgregarCaracteristicasPropiedad(int idCaracteristica, int idPropiedad);
+        public Task<Response> DisminuirCaracteristicaPropiedad(int idPropiedadCaracteristica);
+        public Task<Response> AumentarCaracteristicasPropiedad(int idPropiedadCaracteristica);
+        public Task<Response> EliminarCaracteristicaPropiedad(int idPropiedadCaracteristica);
+        public Task<Response> EliminarTipoServicioMunicipal(int idServicio);
+        public Task<Response> EliminarTipoServicioPublico(int idServicio);
+        public Task<Response> AgregarDatosServiciosMunicipales(ServicioMunicipal servicio);
+        public Task<Response> AgregarDatosServiciosPublicos(ServicioPublico servicio);
+        public Task<Response> AgregarDatosDocumentoPropiedad(DocumentoPropiedad documento);
+        public Task<Response> AgregarDatosAccesoPropiedad(AccesoPropiedad acceso);
+        public Task<Response> AgregarDatosEditadosServiciosMunicipales(ServicioMunicipal servicio);
+        public Task<Response> AgregarDatosEditadosServiciosPublicos(ServicioPublico servicio);
+        public Task<Response> AgregarDatosEditadosSituacionPropiedad(SituacionLegalPropiedad situacion);
+        public Task<Response> AgregarDatosEditadosRecorridoPropiedad(AccesoPropiedad acceso);
+        public Task<Response> AgregarDatosEditadosDocumentosPropiedad(DocumentoPropiedad documento);
+        public List<ServicioMunicipal> ObtenerServiciosMunicipales(int idPropiedad);
+        public List<AccesoPropiedad> ObtenerRecorridosPropiedad(int idPropiedad);
+        public List<SituacionLegalPropiedad> ObtenerSituacionesPropiedad(int idPropiedad);
+        public List<ServicioPublico> ObtenerServiciosPublicos(int idPropiedad);
+        public List<DocumentoPropiedad> ObtenerDocumentosPropiedad(int idPropiedad);
+        public Task<Response> ObtenerServicioMunicipal(int idServicio);
+        public Task<Response> ObtenerServicioPublico(int idServicio);
+        public Task<Response> ObtenerDocumentoPropiedad(int idDocumento);
+        public Task<Response> ObtenerRecorridoPropiedad(int idDocumento);
+        public Task<Response> ObtenerSituacionLegalPropiedad(int idSituacion);
+        public Task<Response> AgregarDatosSituacionPropiedad(SituacionLegalPropiedad situacion);
+        public Task<Response> EliminarTipoSituacionPropiedad(int idSituacion);
+        public Task<Response> EliminarDocumentoPropiedad(int idDocumento);
+        public Task<Response> EliminarRecorridoPropiedad(int idRecorrido);
+        public Task<Response> ObtenerIntencionPropiedad(int idPropiedad);
+        public Task<Response> ObtenerVistaElegida(int idPropiedad);
+        public Task<Response> ValidarPoseePozoPropiedad(int idPropiedad);
+        public Task<Response> EditarDatosInicialesPropiedad(EditarPropiedadViewModel propiedad, string usuario);
+        public Task<Response> AgregarImagenPropiedad(string rutaImagen, int idPropiedad);
+        public Task<Response> ObtenerImagenesPropiedad(int idPropiedad);
+        public Task<Response> CambiarEstadoPropiedad(MostrarPropiedadTabla propiedad);
+        public Task<Response> CambiarPublicadoPropiedad(MostrarPropiedadTabla propiedad);
+        public Task<Response> EliminarImagenGaleria(Imagen imagen);
+        public Task<Response> ObtenerImagen(int idImagen);
+        public Task<List<VerPropiedadViewModel>> ObtenerPropiedadPorFiltrado(BuscarPropiedad propiedad);
+        public List<Bitacora> ObtenerListaBitacoraPropiedades(Bitacora bitacora);
+        public List<Bitacora> ListaBitacoraPropiedades();
+        public Task<List<VerPropiedadViewModel>> ObtenerDatosPropiedadesVenta(int id);
+        public Task<Response> EliminarPropiedad(int idPropiedad);
+        public Task<Response> ActivarPropiedadEnListaPrincipal(int idPropiedad);
+    } 
+}
